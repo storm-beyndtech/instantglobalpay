@@ -57,7 +57,10 @@ export default function TransfersPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
       const response = await fetch(`/api/users/lookup?email=${encodeURIComponent(recipientEmail)}`, {
         headers,

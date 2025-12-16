@@ -46,7 +46,10 @@ export default function DepositsApprovalPage() {
   const fetchDeposits = async () => {
     try {
       const token = localStorage.getItem("token");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
       const response = await fetch("/api/deposits", { headers });
       const data = await response.json();

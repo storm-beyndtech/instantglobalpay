@@ -56,10 +56,7 @@ export default function UsersManagementPage() {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const headers: Record<string, string> = {};
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-      }
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
       const params = new URLSearchParams({
         page: currentPage.toString(),
@@ -190,10 +187,7 @@ export default function UsersManagementPage() {
     setProcessingId(userId);
     try {
       const token = localStorage.getItem("token");
-      const headers: Record<string, string> = {};
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-      }
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
       const response = await fetch(`/api/users/${userId}`, {
         method: "DELETE",

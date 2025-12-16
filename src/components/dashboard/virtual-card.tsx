@@ -219,7 +219,7 @@ export function VirtualCard({
         ) : status === "frozen" ? (
           <Button
             size="sm"
-            variant="default"
+            variant="primary"
             className="gap-2"
             onClick={(e) => {
               e.stopPropagation();

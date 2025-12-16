@@ -133,8 +133,8 @@ export default function DashboardPage() {
     },
   ];
 
-  const activity: ActivityItem[] = transactions.slice(0, 5).map((t) => ({
-    id: t.id,
+  const activity: ActivityItem[] = transactions.slice(0, 5).map((t, index) => ({
+    id: t.id || `transaction-${index}`,
     type: "transaction",
     title: t.kind === "internal_transfer" ? "Internal transfer" : "External transfer",
     details: `${t.currency} ${t.amount.toLocaleString()} • ${t.description}`,
@@ -143,93 +143,95 @@ export default function DashboardPage() {
   }));
 
   return (
-      <div className="space-y-8">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">InstantGlobal OS • Unified money operations</p>
-            <h1 className="text-3xl font-semibold tracking-tight">Welcome back, {primary?.name?.first ?? "operator"}.</h1>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Button variant="outline" className="gap-2" asChild>
-              <a href="/dashboard/transfers">
-                <Send className="h-4 w-4" />
-                New transfer
-              </a>
-            </Button>
-            <Button className="gap-2" asChild>
-              <a href="/dashboard/cards">
-                <Wallet className="h-4 w-4" />
-                Issue card
-              </a>
-            </Button>
-          </div>
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="space-y-1">
+          <p className="text-sm text-muted-foreground">InstantGlobal OS • Unified money operations</p>
+          <h1 className="text-3xl font-semibold tracking-tight">Welcome back, {primary?.name?.first ?? "operator"}.</h1>
         </div>
-
-        <AnalyticsKPIRow kpis={kpis} />
-
-        <div className="grid gap-6 lg:grid-cols-4">
-          <TotalVisitorsCard total={12450} className="lg:col-span-2" />
-          <LastQuarterVisitorsCard total={65800} className="lg:col-span-2" />
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <AnalyticsChart
-              title="Processing Volume"
-              description="Card + treasury volume (USD equiv.)"
-              type="area"
-              data={chartData}
-              xKey="month"
-              yKeys={[
-                { key: "volume", label: "Card Volume", color: "#a855f7" },
-                { key: "payouts", label: "Payouts", color: "#22c55e" },
-              ]}
-              height={320}
-            />
-          </div>
-          <div className="grid gap-4">
-            <BankingCard
-              name={primary?.name?.full ?? "Banking User"}
-              maskedNumber={(account.number || primary?.account?.number || "0000").slice(-4)}
-              balance={`$${(account.balance ?? primary?.account?.balance ?? 0).toLocaleString()}`}
-              expiry="08/27"
-              status="Active"
-              accent="violet"
-            />
-            <KPIDataTable className="bg-card/40" />
-          </div>
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-3">
-          <Card variant="glass" padding="lg" hover="lift" className="lg:col-span-2">
-            <CardHeader className="p-0 space-y-1">
-              <CardTitle className="text-lg">Playbooks</CardTitle>
-              <CardDescription>Prebuilt flows for operations</CardDescription>
-            </CardHeader>
-            <CardContent className="p-0 mt-6">
-              <ResourceList items={resources} />
-            </CardContent>
-          </Card>
-          <ActivityFeed activities={activity} />
-        </div>
-
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Operational shortcuts</h2>
-            <div className="flex gap-2 text-sm text-muted-foreground">
-              <ArrowUpRight className="h-4 w-4" />
-              <span>Quick links</span>
-            </div>
-          </div>
-          <StatGrid
-            items={[
-              { icon: ShieldCheck, label: "KYC pending", value: "—" },
-              { icon: ArrowUpRight, label: "External fees", value: `${process.env.NEXT_PUBLIC_EXTERNAL_TRANSFER_FEE_PERCENT || 2.5}%`, description: "Adjust in Admin" },
-              { icon: ArrowDownRight, label: "Gift card fee", value: `$${process.env.NEXT_PUBLIC_GIFT_CARD_FEE || 4.5}` },
-              { icon: Plane, label: "Flight vendors", value: "2" },
-            ]}
-          />
+        <div className="flex flex-wrap gap-3">
+          <Button variant="outline" className="gap-2" asChild>
+            <a href="/dashboard/transfers">
+              <Send className="h-4 w-4" />
+              New transfer
+            </a>
+          </Button>
+          <Button className="gap-2" asChild>
+            <a href="/dashboard/cards">
+              <Wallet className="h-4 w-4" />
+              Issue card
+            </a>
+          </Button>
         </div>
       </div>
+
+      <AnalyticsKPIRow kpis={kpis} />
+
+      <div className="grid gap-6 lg:grid-cols-4">
+        <TotalVisitorsCard total={12450} className="lg:col-span-2" />
+        <LastQuarterVisitorsCard total={65800} className="lg:col-span-2" />
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <AnalyticsChart
+            title="Processing Volume"
+            description="Card + treasury volume (USD equiv.)"
+            type="area"
+            data={chartData}
+            xKey="month"
+            yKeys={[
+              { key: "volume", label: "Card Volume", color: "#a855f7" },
+              { key: "payouts", label: "Payouts", color: "#22c55e" },
+            ]}
+            height={320}
+          />
+        </div>
+        <div className="grid gap-4 lg:col-span-2">
+          <BankingCard
+            name={primary?.name?.full ?? "Banking User"}
+            maskedNumber={(account.number || primary?.account?.number || "0000").slice(-4)}
+            balance={`$${(account.balance ?? primary?.account?.balance ?? 0).toLocaleString()}`}
+            expiry="08/27"
+            status="Active"
+            accent="violet"
+          />
+          <KPIDataTable className="bg-card/40" />
+        </div>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-5">
+        <Card variant="glass" padding="lg" hover="lift" className="lg:col-span-3">
+          <CardHeader className="p-0 space-y-1">
+            <CardTitle className="text-lg">Playbooks</CardTitle>
+            <CardDescription>Prebuilt flows for operations</CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 mt-6">
+            <ResourceList items={resources} />
+          </CardContent>
+        </Card>
+        <div className="lg:col-span-2">
+          <ActivityFeed activities={activity} />
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Operational shortcuts</h2>
+          <div className="flex gap-2 text-sm text-muted-foreground">
+            <ArrowUpRight className="h-4 w-4" />
+            <span>Quick links</span>
+          </div>
+        </div>
+        <StatGrid
+          items={[
+            { icon: ShieldCheck, label: "KYC pending", value: "—" },
+            { icon: ArrowUpRight, label: "External fees", value: `${process.env.NEXT_PUBLIC_EXTERNAL_TRANSFER_FEE_PERCENT || 2.5}%`, description: "Adjust in Admin" },
+            { icon: ArrowDownRight, label: "Gift card fee", value: `$${process.env.NEXT_PUBLIC_GIFT_CARD_FEE || 4.5}` },
+            { icon: Plane, label: "Flight vendors", value: "2" },
+          ]}
+        />
+      </div>
+    </div>
   );
 }

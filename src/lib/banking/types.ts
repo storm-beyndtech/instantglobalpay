@@ -58,6 +58,10 @@ export interface User {
   flags: UserFlags;
   metadata: UserMetadata;
   wallets?: WalletAddress[];
+  // Backend compatibility fields
+  accountStatus?: string;
+  kycStatus?: string;
+  createdAt?: string;
 }
 
 export type TransactionKind =

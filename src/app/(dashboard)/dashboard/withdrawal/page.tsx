@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/components/providers/auth-provider";
-import { Wallet, AlertCircle, TrendingDown, Clock } from "lucide-react";
+import { AlertCircle, TrendingDown, Clock } from "lucide-react";
 
 export default function WithdrawalPage() {
   const { user } = useAuth();
@@ -23,14 +23,19 @@ export default function WithdrawalPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBalanceAndWithdrawals();
-  }, []);
+    if (user?.id) {
+      fetchBalanceAndWithdrawals();
+    }
+  }, [user?.id]);
 
   const fetchBalanceAndWithdrawals = async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
       // Fetch user balance
       const balanceRes = await fetch(`/api/banking/account/${user?.id}`, { headers });
@@ -92,10 +97,12 @@ export default function WithdrawalPage() {
     setSubmitting(true);
     try {
       const token = localStorage.getItem("token");
-      const headers = {
+      const headers: Record<string, string> = {
         "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
       const response = await fetch("/api/withdrawals", {
         method: "POST",

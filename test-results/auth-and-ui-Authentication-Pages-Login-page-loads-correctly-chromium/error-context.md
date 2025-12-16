@@ -1,0 +1,95 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic:
+        - img
+    - generic [ref=e6]:
+      - link "InstantGlobal" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "InstantGlobal" [ref=e9]
+      - generic [ref=e10]:
+        - button "Toggle theme" [ref=e11] [cursor=pointer]:
+          - img
+          - img [ref=e12]
+        - generic [ref=e14]: New to InstantGlobal?
+        - link "Create Account" [ref=e15] [cursor=pointer]:
+          - /url: /signup
+          - button "Create Account" [ref=e16]
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - img [ref=e24]
+          - heading "Welcome back" [level=1] [ref=e26]
+          - paragraph [ref=e27]: Sign in to access your global financial platform
+        - generic [ref=e28]:
+          - generic [ref=e29]:
+            - generic [ref=e30]:
+              - text: Email Address
+              - generic [ref=e31]:
+                - img [ref=e32]
+                - textbox "Email Address" [ref=e35]:
+                  - /placeholder: you@company.com
+            - generic [ref=e36]:
+              - generic [ref=e37]:
+                - generic [ref=e38]: Password
+                - link "Forgot password?" [ref=e39] [cursor=pointer]:
+                  - /url: /forgot-password
+              - generic [ref=e40]:
+                - img [ref=e41]
+                - textbox "Password" [ref=e44]:
+                  - /placeholder: ••••••••••
+            - button "Sign In" [ref=e45] [cursor=pointer]:
+              - generic [ref=e46]: Sign In
+              - img [ref=e47]
+          - generic [ref=e53]: Or
+          - generic [ref=e54]:
+            - button "Continue with Google" [ref=e55] [cursor=pointer]:
+              - img [ref=e56]
+              - text: Continue with Google
+            - button "Continue with GitHub" [ref=e61] [cursor=pointer]:
+              - img [ref=e62]
+              - text: Continue with GitHub
+        - paragraph [ref=e64]:
+          - text: By signing in, you agree to our
+          - link "Terms" [ref=e65] [cursor=pointer]:
+            - /url: /legal/terms
+          - text: and
+          - link "Privacy Policy" [ref=e66] [cursor=pointer]:
+            - /url: /legal/privacy
+      - generic [ref=e68]:
+        - generic [ref=e69]:
+          - heading "Financial infrastructure for global business" [level=2] [ref=e70]
+          - paragraph [ref=e71]: Access enterprise-grade payment infrastructure trusted by 10,000+ businesses worldwide.
+        - generic [ref=e72]:
+          - generic [ref=e75]:
+            - img [ref=e77]
+            - generic [ref=e80]:
+              - heading "Global Accounts" [level=3] [ref=e81]
+              - paragraph [ref=e82]: Multi-currency accounts in 50+ currencies
+          - generic [ref=e85]:
+            - img [ref=e87]
+            - generic [ref=e89]:
+              - heading "Instant Cards" [level=3] [ref=e90]
+              - paragraph [ref=e91]: Virtual & physical card issuing worldwide
+          - generic [ref=e94]:
+            - img [ref=e96]
+            - generic [ref=e98]:
+              - heading "Enterprise Security" [level=3] [ref=e99]
+              - paragraph [ref=e100]: PCI DSS Level 1 & SOC 2 certified
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - img [ref=e104]
+            - generic [ref=e107]: PCI DSS Level 1
+          - generic [ref=e108]:
+            - img [ref=e109]
+            - generic [ref=e112]: SOC 2 Certified
+          - generic [ref=e113]:
+            - img [ref=e114]
+            - generic [ref=e117]: 99.99% Uptime
+  - button "Open Next.js Dev Tools" [ref=e123] [cursor=pointer]:
+    - img [ref=e124]
+  - alert [ref=e127]
+```

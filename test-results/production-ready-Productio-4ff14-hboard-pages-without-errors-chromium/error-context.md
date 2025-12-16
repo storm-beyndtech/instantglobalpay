@@ -1,0 +1,120 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic:
+        - img
+    - generic [ref=e6]:
+      - link "InstantGlobal" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "InstantGlobal" [ref=e9]
+      - generic [ref=e10]:
+        - generic [ref=e11]: Already have an account?
+        - link "Sign In" [ref=e12] [cursor=pointer]:
+          - /url: /login
+          - button "Sign In" [ref=e13]
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - img [ref=e21]
+          - heading "Create your account" [level=1] [ref=e23]
+          - paragraph [ref=e24]: Start accepting global payments in minutes
+        - generic [ref=e25]:
+          - generic [ref=e26]:
+            - generic [ref=e27]:
+              - text: Full Name
+              - generic [ref=e28]:
+                - img [ref=e29]
+                - textbox "Full Name" [ref=e32]:
+                  - /placeholder: John Doe
+                  - text: Test User
+            - generic [ref=e33]:
+              - text: Work Email
+              - generic [ref=e34]:
+                - img [ref=e35]
+                - textbox "Work Email" [ref=e38]:
+                  - /placeholder: you@company.com
+                  - text: test1765894734993@example.com
+            - generic [ref=e39]:
+              - text: Country
+              - generic [ref=e40]:
+                - img [ref=e41]
+                - textbox "Country" [ref=e44]:
+                  - /placeholder: US
+                  - text: US
+            - generic [ref=e45]:
+              - generic [ref=e46]:
+                - text: Password
+                - generic [ref=e47]:
+                  - img [ref=e48]
+                  - textbox "Password" [ref=e51]:
+                    - /placeholder: ••••••••••
+                    - text: TestPassword123!
+              - generic [ref=e52]:
+                - text: Confirm
+                - generic [ref=e53]:
+                  - img [ref=e54]
+                  - textbox "Confirm" [ref=e57]:
+                    - /placeholder: ••••••••••
+                    - text: TestPassword123!
+            - generic [ref=e58]: Password must be at least 8 characters
+            - button "Creating account..." [disabled]
+          - generic [ref=e63]: Or sign up with
+          - generic [ref=e64]:
+            - button "Continue with Google" [ref=e65] [cursor=pointer]:
+              - img [ref=e66]
+              - text: Continue with Google
+            - button "Continue with GitHub" [ref=e71] [cursor=pointer]:
+              - img [ref=e72]
+              - text: Continue with GitHub
+        - paragraph [ref=e74]:
+          - text: By creating an account, you agree to our
+          - link "Terms" [ref=e75] [cursor=pointer]:
+            - /url: /legal/terms
+          - text: and
+          - link "Privacy Policy" [ref=e76] [cursor=pointer]:
+            - /url: /legal/privacy
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - heading "Join 10,000+ businesses" [level=2] [ref=e80]
+          - paragraph [ref=e81]: Get started with enterprise-grade financial infrastructure in minutes. No credit card required.
+        - generic [ref=e82]:
+          - generic [ref=e85]:
+            - img [ref=e87]
+            - generic [ref=e90]:
+              - heading "Instant Setup" [level=3] [ref=e91]
+              - paragraph [ref=e92]: Account created in under 2 minutes
+          - generic [ref=e95]:
+            - img [ref=e97]
+            - generic [ref=e99]:
+              - heading "Immediate Access" [level=3] [ref=e100]
+              - paragraph [ref=e101]: Start issuing cards and accepting payments instantly
+          - generic [ref=e104]:
+            - img [ref=e106]
+            - generic [ref=e108]:
+              - heading "Secure by Default" [level=3] [ref=e109]
+              - paragraph [ref=e110]: Bank-grade encryption and compliance built-in
+        - generic [ref=e112]:
+          - heading "What you get" [level=3] [ref=e113]
+          - generic [ref=e114]:
+            - generic [ref=e115]:
+              - img [ref=e116]
+              - generic [ref=e119]: Multi-currency accounts in 50+ currencies
+            - generic [ref=e120]:
+              - img [ref=e121]
+              - generic [ref=e124]: Virtual & physical card issuing
+            - generic [ref=e125]:
+              - img [ref=e126]
+              - generic [ref=e129]: Global payouts in 89 countries
+            - generic [ref=e130]:
+              - img [ref=e131]
+              - generic [ref=e134]: Developer-friendly APIs & webhooks
+            - generic [ref=e135]:
+              - img [ref=e136]
+              - generic [ref=e139]: 24/7 support & full documentation
+  - button "Open Next.js Dev Tools" [ref=e145] [cursor=pointer]:
+    - img [ref=e146]
+  - alert [ref=e149]
+```

@@ -78,7 +78,10 @@ export default function FlightsPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
       const params = new URLSearchParams({
         origin: origin.toUpperCase(),
@@ -117,10 +120,12 @@ export default function FlightsPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const headers = {
+      const headers: Record<string, string> = {
         "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
       const response = await fetch("/api/flights/book", {
         method: "POST",

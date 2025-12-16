@@ -46,10 +46,7 @@ export default function EmailManagementPage() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const headers: Record<string, string> = {};
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-      }
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
       const response = await fetch("/api/users?limit=1000", { headers });
       const data = await response.json();
@@ -64,10 +61,7 @@ export default function EmailManagementPage() {
   const fetchEmailLogs = async () => {
     try {
       const token = localStorage.getItem("token");
-      const headers: Record<string, string> = {};
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-      }
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
       // This endpoint doesn't exist yet - will need to be created
       const response = await fetch("/api/admin/email-logs?limit=50", { headers });

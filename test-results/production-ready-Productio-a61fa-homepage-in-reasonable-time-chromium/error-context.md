@@ -1,0 +1,1141 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - navigation [ref=e4]:
+        - generic [ref=e5]:
+          - link "InstantGlobal" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - img "InstantGlobal" [ref=e8]
+          - generic [ref=e9]:
+            - button "Products" [ref=e11] [cursor=pointer]:
+              - text: Products
+              - img [ref=e12]
+            - link "Pricing" [ref=e14] [cursor=pointer]:
+              - /url: /pricing
+            - link "About" [ref=e15] [cursor=pointer]:
+              - /url: /about
+            - link "Contact" [ref=e16] [cursor=pointer]:
+              - /url: /contact
+          - generic [ref=e17]:
+            - button "Toggle theme" [ref=e18] [cursor=pointer]:
+              - img
+              - img [ref=e19]
+            - link "Sign In" [ref=e21] [cursor=pointer]:
+              - /url: /login
+              - button "Sign In" [ref=e22]
+            - link "Get Started" [ref=e23] [cursor=pointer]:
+              - /url: /signup
+              - button "Get Started" [ref=e25]:
+                - text: Get Started
+                - img [ref=e26]
+    - main [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e32]:
+          - generic:
+            - img
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e37]:
+              - img [ref=e38]
+              - generic [ref=e40]: Now supporting 89 countries worldwide
+            - heading "Financial infrastructure without borders" [level=1] [ref=e42]
+            - paragraph [ref=e43]: Issue cards in 89+ countries. Hold 50+ currencies. Execute payouts instantly. Built for companies at global scale.
+            - generic [ref=e44]:
+              - button "Launch global account" [ref=e45] [cursor=pointer]:
+                - generic [ref=e46]: Launch global account
+                - img [ref=e47]
+              - button "Explore Platform" [ref=e49] [cursor=pointer]:
+                - generic [ref=e50]: Explore Platform
+                - img [ref=e51]
+            - generic [ref=e53]:
+              - generic [ref=e54]:
+                - img [ref=e56]
+                - generic [ref=e58]: PCI DSS Level 1
+              - generic [ref=e59]:
+                - img [ref=e61]
+                - generic [ref=e64]: 89 Countries
+              - generic [ref=e65]:
+                - img [ref=e67]
+                - generic [ref=e70]: SOC 2 Certified
+          - generic [ref=e71]:
+            - img [ref=e74]
+            - img "heroAsset" [ref=e122]
+      - generic [ref=e133]:
+        - generic [ref=e135]:
+          - generic [ref=e137]: TechCorp
+          - generic [ref=e139]: GlobalScale
+          - generic [ref=e141]: PayFlow
+          - generic [ref=e143]: FinanceHub
+          - generic [ref=e145]: CloudPay
+          - generic [ref=e147]: DataFlow
+          - generic [ref=e149]: Velocity
+          - generic [ref=e151]: Nexus
+          - generic [ref=e153]: Summit
+          - generic [ref=e155]: Frontier
+          - generic [ref=e157]: Quantum
+          - generic [ref=e159]: Zenith
+          - generic [ref=e161]: TechCorp
+          - generic [ref=e163]: GlobalScale
+          - generic [ref=e165]: PayFlow
+          - generic [ref=e167]: FinanceHub
+          - generic [ref=e169]: CloudPay
+          - generic [ref=e171]: DataFlow
+          - generic [ref=e173]: Velocity
+          - generic [ref=e175]: Nexus
+          - generic [ref=e177]: Summit
+          - generic [ref=e179]: Frontier
+          - generic [ref=e181]: Quantum
+          - generic [ref=e183]: Zenith
+          - generic [ref=e185]: TechCorp
+          - generic [ref=e187]: GlobalScale
+          - generic [ref=e189]: PayFlow
+          - generic [ref=e191]: FinanceHub
+          - generic [ref=e193]: CloudPay
+          - generic [ref=e195]: DataFlow
+          - generic [ref=e197]: Velocity
+          - generic [ref=e199]: Nexus
+          - generic [ref=e201]: Summit
+          - generic [ref=e203]: Frontier
+          - generic [ref=e205]: Quantum
+          - generic [ref=e207]: Zenith
+        - generic [ref=e209]:
+          - generic [ref=e211]: TechCorp
+          - generic [ref=e213]: GlobalScale
+          - generic [ref=e215]: PayFlow
+          - generic [ref=e217]: FinanceHub
+          - generic [ref=e219]: CloudPay
+          - generic [ref=e221]: DataFlow
+          - generic [ref=e223]: Velocity
+          - generic [ref=e225]: Nexus
+          - generic [ref=e227]: Summit
+          - generic [ref=e229]: Frontier
+          - generic [ref=e231]: Quantum
+          - generic [ref=e233]: Zenith
+          - generic [ref=e235]: TechCorp
+          - generic [ref=e237]: GlobalScale
+          - generic [ref=e239]: PayFlow
+          - generic [ref=e241]: FinanceHub
+          - generic [ref=e243]: CloudPay
+          - generic [ref=e245]: DataFlow
+          - generic [ref=e247]: Velocity
+          - generic [ref=e249]: Nexus
+          - generic [ref=e251]: Summit
+          - generic [ref=e253]: Frontier
+          - generic [ref=e255]: Quantum
+          - generic [ref=e257]: Zenith
+          - generic [ref=e259]: TechCorp
+          - generic [ref=e261]: GlobalScale
+          - generic [ref=e263]: PayFlow
+          - generic [ref=e265]: FinanceHub
+          - generic [ref=e267]: CloudPay
+          - generic [ref=e269]: DataFlow
+          - generic [ref=e271]: Velocity
+          - generic [ref=e273]: Nexus
+          - generic [ref=e275]: Summit
+          - generic [ref=e277]: Frontier
+          - generic [ref=e279]: Quantum
+          - generic [ref=e281]: Zenith
+      - generic [ref=e285]:
+        - generic [ref=e286]:
+          - generic:
+            - img
+          - img "Global coverage map" [ref=e289]
+        - generic [ref=e291]:
+          - generic [ref=e296]:
+            - img [ref=e298]
+            - generic [ref=e301]:
+              - paragraph [ref=e302]: "89"
+              - paragraph [ref=e303]: Countries
+          - generic [ref=e308]:
+            - img [ref=e310]
+            - generic [ref=e313]:
+              - paragraph [ref=e314]: 50+
+              - paragraph [ref=e315]: Currencies
+          - generic [ref=e320]:
+            - img [ref=e322]
+            - generic [ref=e325]:
+              - paragraph [ref=e326]: 15+
+              - paragraph [ref=e327]: Payment Rails
+          - generic [ref=e332]:
+            - img [ref=e334]
+            - generic [ref=e339]:
+              - paragraph [ref=e340]: 10K+
+              - paragraph [ref=e341]: Active Users
+      - generic [ref=e344]:
+        - generic [ref=e345]:
+          - generic [ref=e347]:
+            - heading "Global Accounts" [level=3] [ref=e349]
+            - img [ref=e351]
+          - generic [ref=e354]:
+            - list [ref=e355]:
+              - listitem [ref=e356]:
+                - generic [ref=e357]: ●
+                - generic [ref=e358]: Hold balances simultaneously
+              - listitem [ref=e359]:
+                - generic [ref=e360]: ●
+                - generic [ref=e361]: Local account details in markets
+              - listitem [ref=e362]:
+                - generic [ref=e363]: ●
+                - generic [ref=e364]: Real-time tracking & notifications
+            - link "Learn more" [ref=e365] [cursor=pointer]:
+              - /url: /products/global-accounts
+              - button "Learn more" [ref=e366]:
+                - generic [ref=e367]: Learn more
+                - img [ref=e368]
+        - generic [ref=e370]:
+          - generic [ref=e372]:
+            - heading "Card Issuing" [level=3] [ref=e374]
+            - img [ref=e376]
+          - generic [ref=e378]:
+            - list [ref=e379]:
+              - listitem [ref=e380]:
+                - generic [ref=e381]: ●
+                - generic [ref=e382]: Instant virtual card generation
+              - listitem [ref=e383]:
+                - generic [ref=e384]: ●
+                - generic [ref=e385]: Physical cards shipped globally
+              - listitem [ref=e386]:
+                - generic [ref=e387]: ●
+                - generic [ref=e388]: Real-time spend controls & limits
+            - link "Learn more" [ref=e389] [cursor=pointer]:
+              - /url: /products/cards
+              - button "Learn more" [ref=e390]:
+                - generic [ref=e391]: Learn more
+                - img [ref=e392]
+        - generic [ref=e394]:
+          - generic [ref=e396]:
+            - heading "Global Payouts" [level=3] [ref=e398]
+            - img [ref=e400]
+          - generic [ref=e402]:
+            - list [ref=e403]:
+              - listitem [ref=e404]:
+                - generic [ref=e405]: ●
+                - generic [ref=e406]: Same-day settlement in markets
+              - listitem [ref=e407]:
+                - generic [ref=e408]: ●
+                - generic [ref=e409]: Local payment method support
+              - listitem [ref=e410]:
+                - generic [ref=e411]: ●
+                - generic [ref=e412]: Instant Batch payout processing
+            - link "Learn more" [ref=e413] [cursor=pointer]:
+              - /url: /products/payouts
+              - button "Learn more" [ref=e414]:
+                - generic [ref=e415]: Learn more
+                - img [ref=e416]
+        - generic [ref=e418]:
+          - generic [ref=e420]:
+            - heading "FX & Treasury" [level=3] [ref=e422]
+            - img [ref=e424]
+          - generic [ref=e427]:
+            - list [ref=e428]:
+              - listitem [ref=e429]:
+                - generic [ref=e430]: ●
+                - generic [ref=e431]: Real-time competitive FX rates
+              - listitem [ref=e432]:
+                - generic [ref=e433]: ●
+                - generic [ref=e434]: Spot and forward contract execution
+              - listitem [ref=e435]:
+                - generic [ref=e436]: ●
+                - generic [ref=e437]: Automated currency hedging
+            - link "Learn more" [ref=e438] [cursor=pointer]:
+              - /url: /products/fx-treasury
+              - button "Learn more" [ref=e439]:
+                - generic [ref=e440]: Learn more
+                - img [ref=e441]
+        - generic [ref=e443]:
+          - generic [ref=e445]:
+            - heading "Travel Payments" [level=3] [ref=e447]
+            - img [ref=e449]
+          - generic [ref=e451]:
+            - list [ref=e452]:
+              - listitem [ref=e453]:
+                - generic [ref=e454]: ●
+                - generic [ref=e455]: Zero foreign transaction fees
+              - listitem [ref=e456]:
+                - generic [ref=e457]: ●
+                - generic [ref=e458]: Multi-currency travel cards
+              - listitem [ref=e459]:
+                - generic [ref=e460]: ●
+                - generic [ref=e461]: Real-time expense categorization
+            - link "Learn more" [ref=e462] [cursor=pointer]:
+              - /url: /products/travel
+              - button "Learn more" [ref=e463]:
+                - generic [ref=e464]: Learn more
+                - img [ref=e465]
+        - generic [ref=e467]:
+          - generic [ref=e469]:
+            - heading "Developer APIs" [level=3] [ref=e471]
+            - img [ref=e473]
+          - generic [ref=e476]:
+            - list [ref=e477]:
+              - listitem [ref=e478]:
+                - generic [ref=e479]: ●
+                - generic [ref=e480]: RESTful API architecture
+              - listitem [ref=e481]:
+                - generic [ref=e482]: ●
+                - generic [ref=e483]: SDKs for major languages
+              - listitem [ref=e484]:
+                - generic [ref=e485]: ●
+                - generic [ref=e486]: Webhook notifications
+            - link "Learn more" [ref=e487] [cursor=pointer]:
+              - /url: /products/api
+              - button "Learn more" [ref=e488]:
+                - generic [ref=e489]: Learn more
+                - img [ref=e490]
+      - generic [ref=e495]:
+        - generic [ref=e497]:
+          - heading "Operating worldwide" [level=2] [ref=e498]
+          - paragraph [ref=e499]: Serving businesses across 89 countries with payment infrastructure and multi-currency support, powering everything from payouts to card issuing globally.
+        - generic [ref=e501]:
+          - generic [ref=e502]:
+            - img [ref=e504]
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: North America
+                  - paragraph: 3 countries
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: Europe
+                  - paragraph: 32 countries
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: Asia Pacific
+                  - paragraph: 28 countries
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: Latin America
+                  - paragraph: 16 countries
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: Middle East
+                  - paragraph: 10 countries
+          - img
+        - generic [ref=e505]:
+          - generic [ref=e506]:
+            - img [ref=e508]
+            - paragraph [ref=e511]: "89"
+            - paragraph [ref=e512]: Countries
+            - paragraph [ref=e513]: Global coverage
+          - generic [ref=e514]:
+            - img [ref=e516]
+            - paragraph [ref=e519]: 50+
+            - paragraph [ref=e520]: Currencies
+            - paragraph [ref=e521]: Supported
+          - generic [ref=e522]:
+            - img [ref=e524]
+            - paragraph [ref=e527]: 15+
+            - paragraph [ref=e528]: Payment Rails
+            - paragraph [ref=e529]: Local methods
+          - generic [ref=e530]:
+            - img [ref=e532]
+            - paragraph [ref=e537]: 10K+
+            - paragraph [ref=e538]: Active Users
+            - paragraph [ref=e539]: Businesses
+      - generic [ref=e541]:
+        - heading "USE CASES" [level=2] [ref=e543]
+        - generic [ref=e544]:
+          - generic [ref=e545]:
+            - heading "International Expansion" [level=3] [ref=e547]
+            - generic [ref=e548]:
+              - paragraph [ref=e549]: Launch in new markets with local currency accounts, card issuing, and global payouts from one platform.
+              - list [ref=e550]:
+                - listitem [ref=e551]:
+                  - img [ref=e552]
+                  - generic [ref=e555]: Open accounts in 50+ currencies instantly
+                - listitem [ref=e556]:
+                  - img [ref=e557]
+                  - generic [ref=e560]: Issue cards to global teams and employees
+                - listitem [ref=e561]:
+                  - img [ref=e562]
+                  - generic [ref=e565]: Execute same-day payouts to 89 countries
+          - generic [ref=e566]:
+            - heading "Expense & Card Management" [level=3] [ref=e568]
+            - generic [ref=e569]:
+              - paragraph [ref=e570]: Eliminate expense reports with instant virtual cards, granular controls, and automated reconciliation.
+              - list [ref=e571]:
+                - listitem [ref=e572]:
+                  - img [ref=e573]
+                  - generic [ref=e576]: Generate virtual cards in under 5 seconds
+                - listitem [ref=e577]:
+                  - img [ref=e578]
+                  - generic [ref=e581]: Real-time spend visibility with live controls
+                - listitem [ref=e582]:
+                  - img [ref=e583]
+                  - generic [ref=e586]: Automatic receipt capture and sync to ERP
+          - generic [ref=e587]:
+            - heading "Cross-Border Payments" [level=3] [ref=e589]
+            - generic [ref=e590]:
+              - paragraph [ref=e591]: Pay suppliers and vendors globally with competitive FX rates and transparent pricing—no hidden fees.
+              - list [ref=e592]:
+                - listitem [ref=e593]:
+                  - img [ref=e594]
+                  - generic [ref=e597]: Same-day settlement in 50+ major markets
+                - listitem [ref=e598]:
+                  - img [ref=e599]
+                  - generic [ref=e602]: Support for 15+ local payment methods
+                - listitem [ref=e603]:
+                  - img [ref=e604]
+                  - generic [ref=e607]: 99.8% first-attempt payment success rate
+      - generic [ref=e610]:
+        - generic [ref=e611]:
+          - generic [ref=e612]:
+            - heading "Hold and manage 50+ global currencies" [level=2] [ref=e613]
+            - paragraph [ref=e614]: Open local currency accounts instantly with no paperwork. Convert at competitive rates and pay suppliers in their preferred currency.
+          - list [ref=e615]:
+            - listitem [ref=e616]:
+              - img [ref=e618]
+              - generic [ref=e620]: Instant account opening in 50+ currencies
+            - listitem [ref=e621]:
+              - img [ref=e623]
+              - generic [ref=e625]: Real-time FX rates with clear pricing
+            - listitem [ref=e626]:
+              - img [ref=e628]
+              - generic [ref=e630]: Forward contracts to lock in rates
+            - listitem [ref=e631]:
+              - img [ref=e633]
+              - generic [ref=e635]: Zero minimum balance requirements
+          - button "View supported currencies" [ref=e637] [cursor=pointer]
+        - img "Multi-currency dashboard" [ref=e639]
+      - generic [ref=e646]: Your browser does not support the video tag.
+      - generic [ref=e649]:
+        - generic [ref=e650]:
+          - generic [ref=e651]:
+            - heading "Built for devs, loved by finance" [level=2] [ref=e652]
+            - paragraph [ref=e653]: API-first architecture with complete control over payments, card issuance, and global payouts. Integrate effortlessly using robust documentation, SDKs in 8+ languages, and real-time sandbox tools engineered for rapid development. Build, automate, and scale your financial flows with confidence — without compromise.
+            - paragraph [ref=e654]: Designed for innovators, SaaS platforms, neobanks, marketplaces, payment-first startups. Power everything from instant transfers to recurring billing, treasury management, partner disbursement, and advanced card programs — all from a single unified API layer. Your infrastructure, your rules.
+          - list [ref=e655]:
+            - listitem [ref=e656]:
+              - img [ref=e658]
+              - generic [ref=e660]: RESTful API with complete documentation
+            - listitem [ref=e661]:
+              - img [ref=e663]
+              - generic [ref=e665]: Real-time webhooks for instant notifications
+            - listitem [ref=e666]:
+              - img [ref=e668]
+              - generic [ref=e670]: Full sandbox environment for safe testing
+            - listitem [ref=e671]:
+              - img [ref=e673]
+              - generic [ref=e675]: 99.99% uptime, 24/7 system monitoring
+          - button "View API docs" [ref=e677] [cursor=pointer]
+        - img "Developer API dashboard" [ref=e679]
+      - generic [ref=e683]:
+        - generic [ref=e685]: PLATFORM
+        - generic [ref=e686]:
+          - generic [ref=e689]:
+            - generic [ref=e690]:
+              - img [ref=e692]
+              - generic [ref=e695]:
+                - heading "Real-time Processing" [level=3] [ref=e696]
+                - paragraph [ref=e697]: Sub-second transaction processing and instant notifications
+            - generic [ref=e698]:
+              - img [ref=e700]
+              - generic [ref=e705]:
+                - heading "99.99% Uptime" [level=3] [ref=e706]
+                - paragraph [ref=e707]: Enterprise-grade reliability with automatic failover
+          - generic [ref=e710]:
+            - generic [ref=e711]:
+              - img [ref=e713]
+              - generic [ref=e716]:
+                - heading "End-to-End Encryption" [level=3] [ref=e717]
+                - paragraph [ref=e718]: Bank-level security with AES-256 encryption at rest
+            - generic [ref=e719]:
+              - img [ref=e721]
+              - generic [ref=e725]:
+                - heading "Compliance Built-in" [level=3] [ref=e726]
+                - paragraph [ref=e727]: PCI DSS Level 1, SOC 2 Type II certified infrastructure
+          - generic [ref=e730]:
+            - generic [ref=e731]:
+              - img [ref=e733]
+              - generic [ref=e735]:
+                - heading "Modern REST APIs" [level=3] [ref=e736]
+                - paragraph [ref=e737]: Comprehensive APIs with SDKs in 8+ languages
+            - generic [ref=e738]:
+              - img [ref=e740]
+              - generic [ref=e744]:
+                - heading "Real-time Webhooks" [level=3] [ref=e745]
+                - paragraph [ref=e746]: Instant event notifications for all transactions
+          - generic [ref=e749]:
+            - generic [ref=e750]:
+              - img [ref=e752]
+              - generic [ref=e757]:
+                - heading "Global Insights" [level=3] [ref=e758]
+                - paragraph [ref=e759]: Real-time dashboards with multi-currency analytics
+            - generic [ref=e760]:
+              - img [ref=e762]
+              - generic [ref=e765]:
+                - heading "Custom Reporting" [level=3] [ref=e766]
+                - paragraph [ref=e767]: Flexible reporting with data export in multiple formats
+        - paragraph [ref=e769]:
+          - text: Want to learn more about our infrastructure?
+          - link "Explore our developer docs" [ref=e770] [cursor=pointer]:
+            - /url: /products/api
+      - generic [ref=e774]:
+        - generic [ref=e775]:
+          - generic [ref=e776]: INTEGRATIONS
+          - heading "Sync your existing tools" [level=2] [ref=e777]
+          - paragraph [ref=e778]: Pre-built integrations with leading accounting, ERP, and payment platforms
+        - generic [ref=e779]:
+          - generic [ref=e780]:
+            - generic [ref=e783]: ACCOUNTING
+            - generic [ref=e785]:
+              - paragraph [ref=e790]: QuickBooks
+              - paragraph [ref=e796]: Xero
+              - paragraph [ref=e802]: NetSuite
+              - paragraph [ref=e808]: Sage
+          - generic [ref=e810]:
+            - generic [ref=e813]: BANKING
+            - generic [ref=e815]:
+              - paragraph [ref=e820]: Plaid
+              - paragraph [ref=e826]: Stripe
+              - paragraph [ref=e832]: Wise
+              - paragraph [ref=e838]: Circle
+          - generic [ref=e840]:
+            - generic [ref=e843]: ERP & COMMERCE
+            - generic [ref=e845]:
+              - paragraph [ref=e850]: SAP
+              - paragraph [ref=e856]: Shopify
+              - paragraph [ref=e862]: WooCommerce
+              - paragraph [ref=e868]: Oracle
+          - generic [ref=e870]:
+            - generic [ref=e873]: DEVELOPER
+            - generic [ref=e875]:
+              - paragraph [ref=e880]: GitHub
+              - paragraph [ref=e886]: Zapier
+              - paragraph [ref=e892]: Postman
+              - paragraph [ref=e898]: Slack
+        - generic [ref=e900]:
+          - paragraph [ref=e901]: Don't see your tool? We also offer custom integrations.
+          - link "Contact us to discuss your integration needs" [ref=e902] [cursor=pointer]:
+            - /url: /contact
+      - generic [ref=e904]:
+        - generic [ref=e905]:
+          - heading "Enterprise-grade security" [level=2] [ref=e906]
+          - paragraph [ref=e907]: Bank-level infrastructure with compliance built in
+        - generic [ref=e908]:
+          - generic [ref=e909]:
+            - img [ref=e911]
+            - heading "PCI DSS Level 1" [level=3] [ref=e913]
+            - paragraph [ref=e914]: Highest security certification
+          - generic [ref=e915]:
+            - img [ref=e917]
+            - heading "SOC 2 Type II" [level=3] [ref=e920]
+            - paragraph [ref=e921]: Independently audited
+          - generic [ref=e922]:
+            - img [ref=e924]
+            - heading "Funds Protection" [level=3] [ref=e926]
+            - paragraph [ref=e927]: Segregated client accounts
+          - generic [ref=e928]:
+            - img [ref=e930]
+            - heading "24/7 Monitoring" [level=3] [ref=e933]
+            - paragraph [ref=e934]: Real-time fraud detection
+      - generic [ref=e935]:
+        - generic [ref=e936]:
+          - heading "What our customers say" [level=3] [ref=e937]
+          - paragraph [ref=e938]: feedback from global businesses
+        - generic [ref=e939]:
+          - generic [ref=e941]:
+            - generic [ref=e945]:
+              - generic [ref=e946]:
+                - img [ref=e947]
+                - img [ref=e949]
+                - img [ref=e951]
+                - img [ref=e953]
+                - img [ref=e955]
+              - paragraph [ref=e957]: "\"InstantGlobal transformed how we handle global payments. API integration was seamless — live in 2 weeks.\""
+              - generic [ref=e958]:
+                - generic [ref=e959]: S
+                - generic [ref=e960]:
+                  - paragraph [ref=e961]: Sarah Chen
+                  - paragraph [ref=e962]: CFO • TechCorp
+            - generic [ref=e966]:
+              - generic [ref=e967]:
+                - img [ref=e968]
+                - img [ref=e970]
+                - img [ref=e972]
+                - img [ref=e974]
+                - img [ref=e976]
+              - paragraph [ref=e978]: "\"We cut payment processing costs by 40%. Multi-currency support is elite.\""
+              - generic [ref=e979]:
+                - generic [ref=e980]: M
+                - generic [ref=e981]:
+                  - paragraph [ref=e982]: Michael Roberts
+                  - paragraph [ref=e983]: Head of Finance • GlobalScale
+            - generic [ref=e987]:
+              - generic [ref=e988]:
+                - img [ref=e989]
+                - img [ref=e991]
+                - img [ref=e993]
+                - img [ref=e995]
+                - img [ref=e997]
+              - paragraph [ref=e999]: "\"Virtual card issuing is unbelievably fast — we love it.\""
+              - generic [ref=e1000]:
+                - generic [ref=e1001]: E
+                - generic [ref=e1002]:
+                  - paragraph [ref=e1003]: Emily Zhang
+                  - paragraph [ref=e1004]: VP Operations • PayFlow
+            - generic [ref=e1008]:
+              - generic [ref=e1009]:
+                - img [ref=e1010]
+                - img [ref=e1012]
+                - img [ref=e1014]
+                - img [ref=e1016]
+                - img [ref=e1018]
+              - paragraph [ref=e1020]: "\"Best developer experience we've used. Documentation is top-notch.\""
+              - generic [ref=e1021]:
+                - generic [ref=e1022]: D
+                - generic [ref=e1023]:
+                  - paragraph [ref=e1024]: David Kumar
+                  - paragraph [ref=e1025]: CTO • FinanceHub
+            - generic [ref=e1029]:
+              - generic [ref=e1030]:
+                - img [ref=e1031]
+                - img [ref=e1033]
+                - img [ref=e1035]
+                - img [ref=e1037]
+                - img [ref=e1039]
+              - paragraph [ref=e1041]: "\"FX rates consistently beat our old provider — saving monthly.\""
+              - generic [ref=e1042]:
+                - generic [ref=e1043]: L
+                - generic [ref=e1044]:
+                  - paragraph [ref=e1045]: Lisa Martinez
+                  - paragraph [ref=e1046]: Finance Director • CloudPay
+            - generic [ref=e1050]:
+              - generic [ref=e1051]:
+                - img [ref=e1052]
+                - img [ref=e1054]
+                - img [ref=e1056]
+                - img [ref=e1058]
+                - img [ref=e1060]
+              - paragraph [ref=e1062]: "\"Scaled effortlessly — over $10M processed Q1.\""
+              - generic [ref=e1063]:
+                - generic [ref=e1064]: J
+                - generic [ref=e1065]:
+                  - paragraph [ref=e1066]: James Wilson
+                  - paragraph [ref=e1067]: CEO • DataFlow
+            - generic [ref=e1071]:
+              - generic [ref=e1072]:
+                - img [ref=e1073]
+                - img [ref=e1075]
+                - img [ref=e1077]
+                - img [ref=e1079]
+                - img [ref=e1081]
+              - paragraph [ref=e1083]: "\"InstantGlobal transformed how we handle global payments. API integration was seamless — live in 2 weeks.\""
+              - generic [ref=e1084]:
+                - generic [ref=e1085]: S
+                - generic [ref=e1086]:
+                  - paragraph [ref=e1087]: Sarah Chen
+                  - paragraph [ref=e1088]: CFO • TechCorp
+            - generic [ref=e1092]:
+              - generic [ref=e1093]:
+                - img [ref=e1094]
+                - img [ref=e1096]
+                - img [ref=e1098]
+                - img [ref=e1100]
+                - img [ref=e1102]
+              - paragraph [ref=e1104]: "\"We cut payment processing costs by 40%. Multi-currency support is elite.\""
+              - generic [ref=e1105]:
+                - generic [ref=e1106]: M
+                - generic [ref=e1107]:
+                  - paragraph [ref=e1108]: Michael Roberts
+                  - paragraph [ref=e1109]: Head of Finance • GlobalScale
+            - generic [ref=e1113]:
+              - generic [ref=e1114]:
+                - img [ref=e1115]
+                - img [ref=e1117]
+                - img [ref=e1119]
+                - img [ref=e1121]
+                - img [ref=e1123]
+              - paragraph [ref=e1125]: "\"Virtual card issuing is unbelievably fast — we love it.\""
+              - generic [ref=e1126]:
+                - generic [ref=e1127]: E
+                - generic [ref=e1128]:
+                  - paragraph [ref=e1129]: Emily Zhang
+                  - paragraph [ref=e1130]: VP Operations • PayFlow
+            - generic [ref=e1134]:
+              - generic [ref=e1135]:
+                - img [ref=e1136]
+                - img [ref=e1138]
+                - img [ref=e1140]
+                - img [ref=e1142]
+                - img [ref=e1144]
+              - paragraph [ref=e1146]: "\"Best developer experience we've used. Documentation is top-notch.\""
+              - generic [ref=e1147]:
+                - generic [ref=e1148]: D
+                - generic [ref=e1149]:
+                  - paragraph [ref=e1150]: David Kumar
+                  - paragraph [ref=e1151]: CTO • FinanceHub
+            - generic [ref=e1155]:
+              - generic [ref=e1156]:
+                - img [ref=e1157]
+                - img [ref=e1159]
+                - img [ref=e1161]
+                - img [ref=e1163]
+                - img [ref=e1165]
+              - paragraph [ref=e1167]: "\"FX rates consistently beat our old provider — saving monthly.\""
+              - generic [ref=e1168]:
+                - generic [ref=e1169]: L
+                - generic [ref=e1170]:
+                  - paragraph [ref=e1171]: Lisa Martinez
+                  - paragraph [ref=e1172]: Finance Director • CloudPay
+            - generic [ref=e1176]:
+              - generic [ref=e1177]:
+                - img [ref=e1178]
+                - img [ref=e1180]
+                - img [ref=e1182]
+                - img [ref=e1184]
+                - img [ref=e1186]
+              - paragraph [ref=e1188]: "\"Scaled effortlessly — over $10M processed Q1.\""
+              - generic [ref=e1189]:
+                - generic [ref=e1190]: J
+                - generic [ref=e1191]:
+                  - paragraph [ref=e1192]: James Wilson
+                  - paragraph [ref=e1193]: CEO • DataFlow
+            - generic [ref=e1197]:
+              - generic [ref=e1198]:
+                - img [ref=e1199]
+                - img [ref=e1201]
+                - img [ref=e1203]
+                - img [ref=e1205]
+                - img [ref=e1207]
+              - paragraph [ref=e1209]: "\"InstantGlobal transformed how we handle global payments. API integration was seamless — live in 2 weeks.\""
+              - generic [ref=e1210]:
+                - generic [ref=e1211]: S
+                - generic [ref=e1212]:
+                  - paragraph [ref=e1213]: Sarah Chen
+                  - paragraph [ref=e1214]: CFO • TechCorp
+            - generic [ref=e1218]:
+              - generic [ref=e1219]:
+                - img [ref=e1220]
+                - img [ref=e1222]
+                - img [ref=e1224]
+                - img [ref=e1226]
+                - img [ref=e1228]
+              - paragraph [ref=e1230]: "\"We cut payment processing costs by 40%. Multi-currency support is elite.\""
+              - generic [ref=e1231]:
+                - generic [ref=e1232]: M
+                - generic [ref=e1233]:
+                  - paragraph [ref=e1234]: Michael Roberts
+                  - paragraph [ref=e1235]: Head of Finance • GlobalScale
+            - generic [ref=e1239]:
+              - generic [ref=e1240]:
+                - img [ref=e1241]
+                - img [ref=e1243]
+                - img [ref=e1245]
+                - img [ref=e1247]
+                - img [ref=e1249]
+              - paragraph [ref=e1251]: "\"Virtual card issuing is unbelievably fast — we love it.\""
+              - generic [ref=e1252]:
+                - generic [ref=e1253]: E
+                - generic [ref=e1254]:
+                  - paragraph [ref=e1255]: Emily Zhang
+                  - paragraph [ref=e1256]: VP Operations • PayFlow
+            - generic [ref=e1260]:
+              - generic [ref=e1261]:
+                - img [ref=e1262]
+                - img [ref=e1264]
+                - img [ref=e1266]
+                - img [ref=e1268]
+                - img [ref=e1270]
+              - paragraph [ref=e1272]: "\"Best developer experience we've used. Documentation is top-notch.\""
+              - generic [ref=e1273]:
+                - generic [ref=e1274]: D
+                - generic [ref=e1275]:
+                  - paragraph [ref=e1276]: David Kumar
+                  - paragraph [ref=e1277]: CTO • FinanceHub
+            - generic [ref=e1281]:
+              - generic [ref=e1282]:
+                - img [ref=e1283]
+                - img [ref=e1285]
+                - img [ref=e1287]
+                - img [ref=e1289]
+                - img [ref=e1291]
+              - paragraph [ref=e1293]: "\"FX rates consistently beat our old provider — saving monthly.\""
+              - generic [ref=e1294]:
+                - generic [ref=e1295]: L
+                - generic [ref=e1296]:
+                  - paragraph [ref=e1297]: Lisa Martinez
+                  - paragraph [ref=e1298]: Finance Director • CloudPay
+            - generic [ref=e1302]:
+              - generic [ref=e1303]:
+                - img [ref=e1304]
+                - img [ref=e1306]
+                - img [ref=e1308]
+                - img [ref=e1310]
+                - img [ref=e1312]
+              - paragraph [ref=e1314]: "\"Scaled effortlessly — over $10M processed Q1.\""
+              - generic [ref=e1315]:
+                - generic [ref=e1316]: J
+                - generic [ref=e1317]:
+                  - paragraph [ref=e1318]: James Wilson
+                  - paragraph [ref=e1319]: CEO • DataFlow
+          - generic [ref=e1321]:
+            - generic [ref=e1325]:
+              - generic [ref=e1326]:
+                - img [ref=e1327]
+                - img [ref=e1329]
+                - img [ref=e1331]
+                - img [ref=e1333]
+                - img [ref=e1335]
+              - paragraph [ref=e1337]: "\"InstantGlobal transformed how we handle global payments. API integration was seamless — live in 2 weeks.\""
+              - generic [ref=e1338]:
+                - generic [ref=e1339]: S
+                - generic [ref=e1340]:
+                  - paragraph [ref=e1341]: Sarah Chen
+                  - paragraph [ref=e1342]: CFO • TechCorp
+            - generic [ref=e1346]:
+              - generic [ref=e1347]:
+                - img [ref=e1348]
+                - img [ref=e1350]
+                - img [ref=e1352]
+                - img [ref=e1354]
+                - img [ref=e1356]
+              - paragraph [ref=e1358]: "\"We cut payment processing costs by 40%. Multi-currency support is elite.\""
+              - generic [ref=e1359]:
+                - generic [ref=e1360]: M
+                - generic [ref=e1361]:
+                  - paragraph [ref=e1362]: Michael Roberts
+                  - paragraph [ref=e1363]: Head of Finance • GlobalScale
+            - generic [ref=e1367]:
+              - generic [ref=e1368]:
+                - img [ref=e1369]
+                - img [ref=e1371]
+                - img [ref=e1373]
+                - img [ref=e1375]
+                - img [ref=e1377]
+              - paragraph [ref=e1379]: "\"Virtual card issuing is unbelievably fast — we love it.\""
+              - generic [ref=e1380]:
+                - generic [ref=e1381]: E
+                - generic [ref=e1382]:
+                  - paragraph [ref=e1383]: Emily Zhang
+                  - paragraph [ref=e1384]: VP Operations • PayFlow
+            - generic [ref=e1388]:
+              - generic [ref=e1389]:
+                - img [ref=e1390]
+                - img [ref=e1392]
+                - img [ref=e1394]
+                - img [ref=e1396]
+                - img [ref=e1398]
+              - paragraph [ref=e1400]: "\"Best developer experience we've used. Documentation is top-notch.\""
+              - generic [ref=e1401]:
+                - generic [ref=e1402]: D
+                - generic [ref=e1403]:
+                  - paragraph [ref=e1404]: David Kumar
+                  - paragraph [ref=e1405]: CTO • FinanceHub
+            - generic [ref=e1409]:
+              - generic [ref=e1410]:
+                - img [ref=e1411]
+                - img [ref=e1413]
+                - img [ref=e1415]
+                - img [ref=e1417]
+                - img [ref=e1419]
+              - paragraph [ref=e1421]: "\"FX rates consistently beat our old provider — saving monthly.\""
+              - generic [ref=e1422]:
+                - generic [ref=e1423]: L
+                - generic [ref=e1424]:
+                  - paragraph [ref=e1425]: Lisa Martinez
+                  - paragraph [ref=e1426]: Finance Director • CloudPay
+            - generic [ref=e1430]:
+              - generic [ref=e1431]:
+                - img [ref=e1432]
+                - img [ref=e1434]
+                - img [ref=e1436]
+                - img [ref=e1438]
+                - img [ref=e1440]
+              - paragraph [ref=e1442]: "\"Scaled effortlessly — over $10M processed Q1.\""
+              - generic [ref=e1443]:
+                - generic [ref=e1444]: J
+                - generic [ref=e1445]:
+                  - paragraph [ref=e1446]: James Wilson
+                  - paragraph [ref=e1447]: CEO • DataFlow
+            - generic [ref=e1451]:
+              - generic [ref=e1452]:
+                - img [ref=e1453]
+                - img [ref=e1455]
+                - img [ref=e1457]
+                - img [ref=e1459]
+                - img [ref=e1461]
+              - paragraph [ref=e1463]: "\"InstantGlobal transformed how we handle global payments. API integration was seamless — live in 2 weeks.\""
+              - generic [ref=e1464]:
+                - generic [ref=e1465]: S
+                - generic [ref=e1466]:
+                  - paragraph [ref=e1467]: Sarah Chen
+                  - paragraph [ref=e1468]: CFO • TechCorp
+            - generic [ref=e1472]:
+              - generic [ref=e1473]:
+                - img [ref=e1474]
+                - img [ref=e1476]
+                - img [ref=e1478]
+                - img [ref=e1480]
+                - img [ref=e1482]
+              - paragraph [ref=e1484]: "\"We cut payment processing costs by 40%. Multi-currency support is elite.\""
+              - generic [ref=e1485]:
+                - generic [ref=e1486]: M
+                - generic [ref=e1487]:
+                  - paragraph [ref=e1488]: Michael Roberts
+                  - paragraph [ref=e1489]: Head of Finance • GlobalScale
+            - generic [ref=e1493]:
+              - generic [ref=e1494]:
+                - img [ref=e1495]
+                - img [ref=e1497]
+                - img [ref=e1499]
+                - img [ref=e1501]
+                - img [ref=e1503]
+              - paragraph [ref=e1505]: "\"Virtual card issuing is unbelievably fast — we love it.\""
+              - generic [ref=e1506]:
+                - generic [ref=e1507]: E
+                - generic [ref=e1508]:
+                  - paragraph [ref=e1509]: Emily Zhang
+                  - paragraph [ref=e1510]: VP Operations • PayFlow
+            - generic [ref=e1514]:
+              - generic [ref=e1515]:
+                - img [ref=e1516]
+                - img [ref=e1518]
+                - img [ref=e1520]
+                - img [ref=e1522]
+                - img [ref=e1524]
+              - paragraph [ref=e1526]: "\"Best developer experience we've used. Documentation is top-notch.\""
+              - generic [ref=e1527]:
+                - generic [ref=e1528]: D
+                - generic [ref=e1529]:
+                  - paragraph [ref=e1530]: David Kumar
+                  - paragraph [ref=e1531]: CTO • FinanceHub
+            - generic [ref=e1535]:
+              - generic [ref=e1536]:
+                - img [ref=e1537]
+                - img [ref=e1539]
+                - img [ref=e1541]
+                - img [ref=e1543]
+                - img [ref=e1545]
+              - paragraph [ref=e1547]: "\"FX rates consistently beat our old provider — saving monthly.\""
+              - generic [ref=e1548]:
+                - generic [ref=e1549]: L
+                - generic [ref=e1550]:
+                  - paragraph [ref=e1551]: Lisa Martinez
+                  - paragraph [ref=e1552]: Finance Director • CloudPay
+            - generic [ref=e1556]:
+              - generic [ref=e1557]:
+                - img [ref=e1558]
+                - img [ref=e1560]
+                - img [ref=e1562]
+                - img [ref=e1564]
+                - img [ref=e1566]
+              - paragraph [ref=e1568]: "\"Scaled effortlessly — over $10M processed Q1.\""
+              - generic [ref=e1569]:
+                - generic [ref=e1570]: J
+                - generic [ref=e1571]:
+                  - paragraph [ref=e1572]: James Wilson
+                  - paragraph [ref=e1573]: CEO • DataFlow
+            - generic [ref=e1577]:
+              - generic [ref=e1578]:
+                - img [ref=e1579]
+                - img [ref=e1581]
+                - img [ref=e1583]
+                - img [ref=e1585]
+                - img [ref=e1587]
+              - paragraph [ref=e1589]: "\"InstantGlobal transformed how we handle global payments. API integration was seamless — live in 2 weeks.\""
+              - generic [ref=e1590]:
+                - generic [ref=e1591]: S
+                - generic [ref=e1592]:
+                  - paragraph [ref=e1593]: Sarah Chen
+                  - paragraph [ref=e1594]: CFO • TechCorp
+            - generic [ref=e1598]:
+              - generic [ref=e1599]:
+                - img [ref=e1600]
+                - img [ref=e1602]
+                - img [ref=e1604]
+                - img [ref=e1606]
+                - img [ref=e1608]
+              - paragraph [ref=e1610]: "\"We cut payment processing costs by 40%. Multi-currency support is elite.\""
+              - generic [ref=e1611]:
+                - generic [ref=e1612]: M
+                - generic [ref=e1613]:
+                  - paragraph [ref=e1614]: Michael Roberts
+                  - paragraph [ref=e1615]: Head of Finance • GlobalScale
+            - generic [ref=e1619]:
+              - generic [ref=e1620]:
+                - img [ref=e1621]
+                - img [ref=e1623]
+                - img [ref=e1625]
+                - img [ref=e1627]
+                - img [ref=e1629]
+              - paragraph [ref=e1631]: "\"Virtual card issuing is unbelievably fast — we love it.\""
+              - generic [ref=e1632]:
+                - generic [ref=e1633]: E
+                - generic [ref=e1634]:
+                  - paragraph [ref=e1635]: Emily Zhang
+                  - paragraph [ref=e1636]: VP Operations • PayFlow
+            - generic [ref=e1640]:
+              - generic [ref=e1641]:
+                - img [ref=e1642]
+                - img [ref=e1644]
+                - img [ref=e1646]
+                - img [ref=e1648]
+                - img [ref=e1650]
+              - paragraph [ref=e1652]: "\"Best developer experience we've used. Documentation is top-notch.\""
+              - generic [ref=e1653]:
+                - generic [ref=e1654]: D
+                - generic [ref=e1655]:
+                  - paragraph [ref=e1656]: David Kumar
+                  - paragraph [ref=e1657]: CTO • FinanceHub
+            - generic [ref=e1661]:
+              - generic [ref=e1662]:
+                - img [ref=e1663]
+                - img [ref=e1665]
+                - img [ref=e1667]
+                - img [ref=e1669]
+                - img [ref=e1671]
+              - paragraph [ref=e1673]: "\"FX rates consistently beat our old provider — saving monthly.\""
+              - generic [ref=e1674]:
+                - generic [ref=e1675]: L
+                - generic [ref=e1676]:
+                  - paragraph [ref=e1677]: Lisa Martinez
+                  - paragraph [ref=e1678]: Finance Director • CloudPay
+            - generic [ref=e1682]:
+              - generic [ref=e1683]:
+                - img [ref=e1684]
+                - img [ref=e1686]
+                - img [ref=e1688]
+                - img [ref=e1690]
+                - img [ref=e1692]
+              - paragraph [ref=e1694]: "\"Scaled effortlessly — over $10M processed Q1.\""
+              - generic [ref=e1695]:
+                - generic [ref=e1696]: J
+                - generic [ref=e1697]:
+                  - paragraph [ref=e1698]: James Wilson
+                  - paragraph [ref=e1699]: CEO • DataFlow
+      - generic [ref=e1700]:
+        - heading "Frequently asked questions" [level=2] [ref=e1702]
+        - generic [ref=e1703]:
+          - button "How quickly can I get started?" [ref=e1705] [cursor=pointer]:
+            - generic [ref=e1706]: How quickly can I get started?
+            - img [ref=e1708]
+          - button "What countries and currencies do you support?" [ref=e1711] [cursor=pointer]:
+            - generic [ref=e1712]: What countries and currencies do you support?
+            - img [ref=e1714]
+          - button "How do you ensure security and compliance?" [ref=e1717] [cursor=pointer]:
+            - generic [ref=e1718]: How do you ensure security and compliance?
+            - img [ref=e1720]
+          - button "What are your pricing and fees?" [ref=e1723] [cursor=pointer]:
+            - generic [ref=e1724]: What are your pricing and fees?
+            - img [ref=e1726]
+          - button "Can I integrate with my existing systems?" [ref=e1729] [cursor=pointer]:
+            - generic [ref=e1730]: Can I integrate with my existing systems?
+            - img [ref=e1732]
+          - button "What kind of support do you offer?" [ref=e1735] [cursor=pointer]:
+            - generic [ref=e1736]: What kind of support do you offer?
+            - img [ref=e1738]
+      - generic [ref=e1743]:
+        - generic [ref=e1744]:
+          - heading "Need help?" [level=3] [ref=e1745]
+          - paragraph [ref=e1746]: Our team is here to help you get started and succeed with InstantGlobal.
+        - generic [ref=e1747]:
+          - link "Contact support" [ref=e1748] [cursor=pointer]:
+            - /url: /contact
+            - button "Contact support" [ref=e1749]:
+              - text: Contact support
+              - img [ref=e1750]
+          - link "Visit help center" [ref=e1752] [cursor=pointer]:
+            - /url: /help
+            - button "Visit help center" [ref=e1753]
+    - contentinfo [ref=e1754]:
+      - generic [ref=e1755]:
+        - generic [ref=e1757]:
+          - generic [ref=e1758]:
+            - link "InstantGlobal" [ref=e1759] [cursor=pointer]:
+              - /url: /
+              - img "InstantGlobal" [ref=e1760]
+            - paragraph [ref=e1761]: Modern payment infrastructure for global businesses. Move money across borders instantly.
+            - generic [ref=e1762]:
+              - link "Twitter" [ref=e1763] [cursor=pointer]:
+                - /url: https://twitter.com
+                - img [ref=e1764]
+              - link "LinkedIn" [ref=e1766] [cursor=pointer]:
+                - /url: https://linkedin.com
+                - img [ref=e1767]
+              - link "GitHub" [ref=e1771] [cursor=pointer]:
+                - /url: https://github.com
+                - img [ref=e1772]
+              - link "Email" [ref=e1775] [cursor=pointer]:
+                - /url: mailto:hello@instantglobal.com
+                - img [ref=e1776]
+          - generic [ref=e1779]:
+            - heading "Product" [level=3] [ref=e1780]
+            - list [ref=e1781]:
+              - listitem [ref=e1782]:
+                - link "Features" [ref=e1783] [cursor=pointer]:
+                  - /url: /features
+              - listitem [ref=e1784]:
+                - link "Pricing" [ref=e1785] [cursor=pointer]:
+                  - /url: /pricing
+              - listitem [ref=e1786]:
+                - link "API Docs" [ref=e1787] [cursor=pointer]:
+                  - /url: /docs
+              - listitem [ref=e1788]:
+                - link "Integration" [ref=e1789] [cursor=pointer]:
+                  - /url: /integration
+          - generic [ref=e1790]:
+            - heading "Company" [level=3] [ref=e1791]
+            - list [ref=e1792]:
+              - listitem [ref=e1793]:
+                - link "About" [ref=e1794] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e1795]:
+                - link "Careers" [ref=e1796] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e1797]:
+                - link "Blog" [ref=e1798] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e1799]:
+                - link "Contact" [ref=e1800] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e1801]:
+            - heading "Legal" [level=3] [ref=e1802]
+            - list [ref=e1803]:
+              - listitem [ref=e1804]:
+                - link "Privacy" [ref=e1805] [cursor=pointer]:
+                  - /url: /legal/privacy
+              - listitem [ref=e1806]:
+                - link "Terms" [ref=e1807] [cursor=pointer]:
+                  - /url: /legal/terms
+              - listitem [ref=e1808]:
+                - link "Security" [ref=e1809] [cursor=pointer]:
+                  - /url: /legal/security
+              - listitem [ref=e1810]:
+                - link "Compliance" [ref=e1811] [cursor=pointer]:
+                  - /url: /legal/compliance
+          - generic [ref=e1812]:
+            - heading "Resources" [level=3] [ref=e1813]
+            - list [ref=e1814]:
+              - listitem [ref=e1815]:
+                - link "Help Center" [ref=e1816] [cursor=pointer]:
+                  - /url: /help
+              - listitem [ref=e1817]:
+                - link "Guides" [ref=e1818] [cursor=pointer]:
+                  - /url: /guides
+              - listitem [ref=e1819]:
+                - link "Status" [ref=e1820] [cursor=pointer]:
+                  - /url: /status
+              - listitem [ref=e1821]:
+                - link "Changelog" [ref=e1822] [cursor=pointer]:
+                  - /url: /changelog
+        - generic [ref=e1824]:
+          - paragraph [ref=e1825]: © 2025 InstantGlobal. All rights reserved.
+          - generic [ref=e1826]:
+            - link "Privacy Policy" [ref=e1827] [cursor=pointer]:
+              - /url: /legal/privacy
+            - link "Terms of Service" [ref=e1828] [cursor=pointer]:
+              - /url: /legal/terms
+            - link "Cookie Settings" [ref=e1829] [cursor=pointer]:
+              - /url: /cookies
+  - button "Open Next.js Dev Tools" [ref=e1835] [cursor=pointer]:
+    - img [ref=e1836]
+  - alert [ref=e1839]
+```

@@ -7,7 +7,6 @@ import { ProductHeroOverkill } from "@/components/marketing/product-hero-overkil
 import { UseCaseSection } from "@/components/marketing/use-case-section";
 import {
   CodeSamplesPanel,
-  createAPISamples,
   type CodeSample,
 } from "@/components/dashboard/code-samples-panel";
 import { APIKeysPanel, type APIKey } from "@/components/dashboard/api-keys-panel";
@@ -15,7 +14,6 @@ import { BackgroundGrid, CodeTerminalVisual } from "@/components/marketing/visua
 import { getProductById } from "@/lib/products";
 import {
   ArrowRight,
-  CheckCircle2,
   Code,
   Terminal,
   Zap,
@@ -24,14 +22,13 @@ import {
   Clock,
   BookOpen,
 } from "lucide-react";
-import heroAsset from "@/assets/code.svg";
 
 // Mock API Keys
 const mockAPIKeys: APIKey[] = [
   {
     id: "1",
     name: "Production Key",
-    key: "sk_live_51HqgT2KuDn9YGzaP8vK3dS2J5mN7hT9qW1xC4bV6fR8yU0oE",
+    key: "sk_live_••••••••••••••••••••••••••••••••••••••••",
     environment: "production",
     createdAt: "Jan 15, 2024",
     lastUsed: "2 hours ago",
@@ -40,7 +37,7 @@ const mockAPIKeys: APIKey[] = [
   {
     id: "2",
     name: "Sandbox Key",
-    key: "sk_test_51HqgT2KuDn9YGzaP8vK3dS2J5mN7hT9qW1xC4bV6fR8yU0oE",
+    key: "sk_test_••••••••••••••••••••••••••••••••••••••••",
     environment: "sandbox",
     createdAt: "Jan 10, 2024",
     lastUsed: "5 hours ago",

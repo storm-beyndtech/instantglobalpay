@@ -47,7 +47,10 @@ export default function TransactionsPage() {
     setLoading(true);
     try {
       const token = typeof window !== "undefined" ? localStorage.getItem("token") : "";
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
       const response = await fetch("/api/transactions", { headers });
       const data = await response.json();
@@ -113,7 +116,7 @@ export default function TransactionsPage() {
   const endIndex = startIndex + itemsPerPage;
   const paginatedTxns = filteredTxns.slice(startIndex, endIndex);
 
-  const uniqueTypes = Array.from(new Set(allTxns.map((t) => t.kind)));
+  const uniqueTypes = Array.from(new Set(allTxns.map((t) => t.kind).filter(Boolean)));
 
   if (loading) {
     return (

@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/components/providers/auth-provider";
-import { Wallet, Building, Globe, Upload, CheckCircle, Copy } from "lucide-react";
+import { Wallet, Building, Globe, CheckCircle, Copy } from "lucide-react";
 
 export default function DepositPage() {
   const { user } = useAuth();
@@ -33,7 +33,7 @@ export default function DepositPage() {
   const [submittingWire, setSubmittingWire] = useState(false);
 
   // Platform wallet addresses (admin will fill these)
-  const platformWallets = {
+  const platformWallets: Record<string, Record<string, string>> = {
     ETH: { USDC: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb", USDT: "0x..." },
     TRX: { USDT: "TYDzYx4W9n8Z7M5K6P3Q2R1S..." },
     BSC: { USDT: "0x..." },
@@ -48,10 +48,12 @@ export default function DepositPage() {
     setSubmittingCrypto(true);
     try {
       const token = localStorage.getItem("token");
-      const headers = {
+      const headers: Record<string, string> = {
         "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
 
       const response = await fetch("/api/deposits", {
         method: "POST",
@@ -106,7 +108,7 @@ export default function DepositPage() {
       formData.append("userName", user?.name?.full || "");
 
       const token = localStorage.getItem("token");
-      const headers: HeadersInit = {};
+      const headers: Record<string, string> = {};
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
       }
@@ -153,7 +155,7 @@ export default function DepositPage() {
       formData.append("userName", user?.name?.full || "");
 
       const token = localStorage.getItem("token");
-      const headers: HeadersInit = {};
+      const headers: Record<string, string> = {};
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
       }
