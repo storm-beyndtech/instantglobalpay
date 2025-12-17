@@ -70,7 +70,7 @@ export function HeroOverkill() {
 							transition={{ duration: 0.8, delay: 0.3 }}
 						>
 							<h1
-								className="text-[2.5rem] md:text-[3.8rem]  font-bold font-mono"
+								className="text-[2rem] md:text-[3.8rem]  font-bold font-mono"
 								style={{ lineHeight: "1.15" }}
 							>
 								Financial infrastructure{" "}
