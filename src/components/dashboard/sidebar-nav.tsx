@@ -22,6 +22,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/components/providers/auth-provider";
 
 interface NavItem {
   label: string;
@@ -105,6 +106,11 @@ const navSections: NavSection[] = [
 
 export function SidebarNav() {
   const pathname = usePathname();
+  const { user } = useAuth();
+
+  // Get user's first name or full name
+  const displayName = user?.name?.first || user?.name?.full || user?.email?.split('@')[0] || "User";
+  const userInitial = displayName.charAt(0).toUpperCase();
 
   return (
     <aside className="fixed top-4 left-4 bottom-4 z-50 w-64 border border-border/50 bg-card/95 backdrop-blur-xl hidden lg:block overflow-hidden rounded-2xl shadow-2xl">
@@ -214,14 +220,14 @@ export function SidebarNav() {
             className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-accent/5 transition-colors group"
           >
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center ring-2 ring-accent-500/20">
-              <span className="text-white text-sm font-semibold">U</span>
+              <span className="text-white text-sm font-semibold">{userInitial}</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium truncate group-hover:text-accent-600 transition-colors">
-                Platform User
+                {displayName}
               </p>
               <p className="text-xs text-muted-foreground/70 truncate">
-                Sandbox Mode
+                {user?.email || "User Account"}
               </p>
             </div>
             <Settings className="h-4 w-4 text-muted-foreground/50 group-hover:text-accent-600 transition-colors" />

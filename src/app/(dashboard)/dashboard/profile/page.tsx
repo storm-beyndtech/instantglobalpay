@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,12 @@ import { Shield, Smartphone, User, Mail, Upload, X, FileText, CheckCircle } from
 export default function ProfilePage() {
   const { user } = useAuth();
   const [mfa, setMfa] = useState(false);
+
+  // Profile form state
+  const [fullName, setFullName] = useState(user?.name?.full || "");
+  const [email, setEmail] = useState(user?.email || "");
   const [country, setCountry] = useState(user?.countryCode || "US");
+  const [profileSaving, setProfileSaving] = useState(false);
 
   // KYC Upload State
   const [showKycForm, setShowKycForm] = useState(false);
@@ -23,6 +28,15 @@ export default function ProfilePage() {
   const [documentExpDate, setDocumentExpDate] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+
+  // Update form when user data changes
+  useEffect(() => {
+    if (user) {
+      setFullName(user.name?.full || "");
+      setEmail(user.email || "");
+      setCountry(user.countryCode || "US");
+    }
+  }, [user]);
 
   const handleKycSubmit = async () => {
     if (!documentFront || !documentBack || !documentNumber || !documentExpDate) {
@@ -88,6 +102,48 @@ export default function ProfilePage() {
     } finally {
       setUploading(false);
       setUploadProgress(0);
+    }
+  };
+
+  const handleProfileSave = async () => {
+    if (!fullName.trim()) {
+      alert("Please enter your full name");
+      return;
+    }
+
+    setProfileSaving(true);
+
+    try {
+      const token = localStorage.getItem("token");
+      const headers: HeadersInit = {
+        "Content-Type": "application/json",
+      };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`/api/users/${user?.id}`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify({
+          name: { full: fullName },
+          countryCode: country,
+        }),
+      });
+
+      if (response.ok) {
+        alert("Profile updated successfully!");
+        // Optionally reload user data here
+        window.location.reload();
+      } else {
+        const error = await response.json();
+        alert(`Failed to update profile: ${error.message || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Profile update error:", error);
+      alert("Failed to update profile. Please try again.");
+    } finally {
+      setProfileSaving(false);
     }
   };
 
@@ -179,18 +235,38 @@ export default function ProfilePage() {
           <CardContent className="p-0 mt-6 space-y-4">
             <div className="space-y-2">
               <Label>Full name</Label>
-              <Input defaultValue={user?.name?.full || "User"} />
+              <Input
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Enter your full name"
+              />
             </div>
             <div className="space-y-2">
               <Label>Email</Label>
-              <Input type="email" defaultValue={user?.email ?? "user@example.com"} />
+              <Input
+                type="email"
+                value={email}
+                disabled
+                className="opacity-60 cursor-not-allowed"
+              />
+              <p className="text-xs text-muted-foreground">Email cannot be changed</p>
             </div>
             <div className="space-y-2">
-              <Label>Country</Label>
-              <Input value={country} onChange={(e) => setCountry(e.target.value.toUpperCase())} />
+              <Label>Country Code</Label>
+              <Input
+                value={country}
+                onChange={(e) => setCountry(e.target.value.toUpperCase())}
+                maxLength={2}
+                placeholder="US"
+              />
             </div>
-            <Button className="w-full" variant="primary-purple">
-              Save profile
+            <Button
+              className="w-full"
+              variant="primary-purple"
+              onClick={handleProfileSave}
+              disabled={profileSaving}
+            >
+              {profileSaving ? "Saving..." : "Save profile"}
             </Button>
           </CardContent>
         </Card>
