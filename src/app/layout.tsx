@@ -11,6 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://instantglobal.com"),
   title: "InstantGlobal - Modern Payment Infrastructure",
   description:
     "Move money across borders instantly. Issue cards globally. Accept payments everywhere. Built for the next generation of businesses.",
@@ -32,12 +33,21 @@ export const metadata: Metadata = {
     title: "InstantGlobal - Modern Payment Infrastructure",
     description:
       "Move money across borders instantly with modern APIs and infrastructure-grade reliability.",
+    images: [
+      {
+        url: "/flyer-short.png",
+        width: 1200,
+        height: 630,
+        alt: "InstantGlobal - Modern Payment Infrastructure",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "InstantGlobal - Modern Payment Infrastructure",
     description:
       "Move money across borders instantly with modern APIs and infrastructure-grade reliability.",
+    images: ["/flyer-short.png"],
   },
 };
 
