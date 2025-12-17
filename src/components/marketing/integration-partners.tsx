@@ -14,37 +14,37 @@ const integrationCategories = [
 	{
 		category: "ACCOUNTING",
 		partners: [
-			{ name: "QuickBooks", width: 140 },
-			{ name: "Xero", width: 100 },
-			{ name: "NetSuite", width: 130 },
-			{ name: "Sage", width: 90 },
+			{ name: "QuickBooks", color: "#2CA01C", font: "bold" },
+			{ name: "Xero", color: "#13B5EA", font: "semibold" },
+			{ name: "NetSuite", color: "#1D252C", font: "bold" },
+			{ name: "Sage", color: "#00DC06", font: "semibold" },
 		],
 	},
 	{
 		category: "BANKING",
 		partners: [
-			{ name: "Plaid", width: 100 },
-			{ name: "Stripe", width: 110 },
-			{ name: "Wise", width: 90 },
-			{ name: "Circle", width: 100 },
+			{ name: "Plaid", color: "#000000", font: "bold" },
+			{ name: "Stripe", color: "#635BFF", font: "semibold" },
+			{ name: "Wise", color: "#9FE870", font: "bold" },
+			{ name: "Circle", color: "#3D3D3D", font: "semibold" },
 		],
 	},
 	{
 		category: "ERP & COMMERCE",
 		partners: [
-			{ name: "SAP", width: 80 },
-			{ name: "Shopify", width: 120 },
-			{ name: "WooCommerce", width: 150 },
-			{ name: "Oracle", width: 110 },
+			{ name: "SAP", color: "#0FAAFF", font: "bold" },
+			{ name: "Shopify", color: "#96BF48", font: "bold" },
+			{ name: "WooCommerce", color: "#96588A", font: "semibold" },
+			{ name: "Oracle", color: "#F80000", font: "bold" },
 		],
 	},
 	{
 		category: "DEVELOPER",
 		partners: [
-			{ name: "GitHub", width: 110 },
-			{ name: "Zapier", width: 110 },
-			{ name: "Postman", width: 120 },
-			{ name: "Slack", width: 100 },
+			{ name: "GitHub", color: "#181717", font: "bold" },
+			{ name: "Zapier", color: "#FF4A00", font: "semibold" },
+			{ name: "Postman", color: "#FF6C37", font: "bold" },
+			{ name: "Slack", color: "#4A154B", font: "bold" },
 		],
 	},
 ];
@@ -124,15 +124,18 @@ export function IntegrationPartners({ className, variant = "default" }: Integrat
 										whileHover={{ scale: 1.05 }}
 									>
 										<div className="relative flex items-center justify-center h-24 rounded-xl bg-glass-card border-glass shadow-glass hover:shadow-depth transition-all duration-300">
-											{/* Logo Placeholder with Name */}
-											<div className="flex flex-col items-center justify-center gap-2">
-												<div
-													className="h-8 rounded bg-gradient-to-r from-muted-foreground/20 to-muted-foreground/10"
-													style={{ width: partner.width }}
-												/>
-												<p className="text-sm font-semibold text-muted-foreground/80 group-hover:text-foreground transition-colors">
+											{/* Typography Logo */}
+											<div className="flex items-center justify-center px-4">
+												<span
+													className={cn(
+														"text-2xl tracking-tight transition-all duration-300",
+														partner.font === "bold" ? "font-bold" : "font-semibold",
+														"group-hover:scale-110"
+													)}
+													style={{ color: partner.color }}
+												>
 													{partner.name}
-												</p>
+												</span>
 											</div>
 
 											{/* Hover Glow Effect */}
@@ -189,10 +192,15 @@ export function IntegrationPartnersSimple({ className }: { className?: string })
 							key={partner.name}
 							className="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity"
 						>
-							<div
-								className="h-6 rounded bg-gradient-to-r from-muted-foreground/30 to-muted-foreground/20"
-								style={{ width: partner.width * 0.8 }}
-							/>
+							<span
+								className={cn(
+									"text-lg tracking-tight",
+									partner.font === "bold" ? "font-bold" : "font-semibold"
+								)}
+								style={{ color: partner.color }}
+							>
+								{partner.name}
+							</span>
 						</div>
 					))}
 				</div>
