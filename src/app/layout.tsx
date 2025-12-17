@@ -36,9 +36,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/flyer-short.png",
-        width: 1200,
-        height: 630,
+        width: 4320,
+        height: 2520,
         alt: "InstantGlobal - Modern Payment Infrastructure",
+        type: "image/png",
       },
     ],
   },
@@ -47,7 +48,10 @@ export const metadata: Metadata = {
     title: "InstantGlobal - Modern Payment Infrastructure",
     description:
       "Move money across borders instantly with modern APIs and infrastructure-grade reliability.",
-    images: ["/flyer-short.png"],
+    images: {
+      url: "/flyer-short.png",
+      alt: "InstantGlobal - Modern Payment Infrastructure",
+    },
   },
 };
 
