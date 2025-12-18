@@ -83,9 +83,10 @@
 		overflow-x: hidden;
 	}
 
-	/* Smooth scrolling */
+	/* Smooth scrolling & prevent horizontal overflow */
 	html {
 		scroll-behavior: smooth;
+		overflow-x: hidden;
 	}
 
 	/* Remove default margins */

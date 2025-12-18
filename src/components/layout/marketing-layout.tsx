@@ -31,7 +31,7 @@ export function MarketingLayout({
   noPadding = true,
 }: MarketingLayoutProps) {
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col overflow-x-hidden">
       {/* Background Layers */}
       {(withAmbientGradient || backgroundLayers) && (
         <div className="fixed inset-0 -z-10 overflow-hidden">
@@ -51,7 +51,7 @@ export function MarketingLayout({
       {/* Main Content */}
       <main
         className={cn(
-          "flex-1",
+          "flex-1 overflow-x-hidden",
           !noPadding && "container-wide container-padding",
           className
         )}
@@ -74,9 +74,9 @@ export function SimpleMarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col overflow-x-hidden">
       <SiteHeader />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 overflow-x-hidden">{children}</main>
       <SiteFooter />
     </div>
   );
