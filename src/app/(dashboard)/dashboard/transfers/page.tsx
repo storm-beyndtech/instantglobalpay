@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { bankingApi } from "@/lib/banking/api";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/components/providers/auth-provider";
+import { toast } from "sonner";
 
 export default function TransfersPage() {
   const { user } = useAuth();
@@ -145,7 +146,7 @@ export default function TransfersPage() {
   const handleInternal = () => {
     if (!user?.id) return;
     if (!recipientVerified || !recipientData) {
-      alert("Please verify the recipient first");
+      toast.warning("Please verify the recipient first");
       return;
     }
 
@@ -156,7 +157,7 @@ export default function TransfersPage() {
       currency: "USD",
       memo: `Internal transfer to ${recipientData.name}`,
     });
-    alert("Internal transfer submitted. Fee: $0.00");
+    toast.success("Internal transfer submitted. Fee: $0.00");
 
     // Reset form
     handleClearRecipient();
@@ -173,7 +174,7 @@ export default function TransfersPage() {
       beneficiary: "External Beneficiary",
       bankDetails: {},
     });
-    alert(`External transfer submitted. Fee: $${externalFee.toFixed(2)}`);
+    toast.success(`External transfer submitted. Fee: $${externalFee.toFixed(2)}`);
   };
 
   return (

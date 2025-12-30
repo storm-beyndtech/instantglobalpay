@@ -144,9 +144,9 @@ export default function PricingPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="section-spacing-lg w-full">
+      <section className="section-spacing-md w-full">
         <div className="container-wide container-padding">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
+          <div className="max-w-4xl mx-auto text-center space-y-5">
             <Badge variant="glass" className="shadow-depth">
               Pricing
             </Badge>
@@ -155,9 +155,9 @@ export default function PricingPage() {
               Transparent BTC-first pricing
             </h1>
 
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
               Card issuance and payment rails priced exactly as advertised. Built as a bank core, delivered with gateway
-              simplicity—no hidden fees.
+              simplicity-no hidden fees.
             </p>
           </div>
         </div>
@@ -227,7 +227,7 @@ export default function PricingPage() {
             </div>
 
             <p className="text-sm text-muted-foreground pt-4">
-              14-day free trial • No credit card required • Cancel anytime
+              14-day free trial - No credit card required - Cancel anytime
             </p>
           </div>
         </div>

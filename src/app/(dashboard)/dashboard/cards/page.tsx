@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { VirtualCard } from "@/components/dashboard/virtual-card";
 import { useAuth } from "@/components/providers/auth-provider";
 import { CreditCard, Plus, Loader2 } from "lucide-react";
 import { bankingApi } from "@/lib/banking/api";
+import { toast } from "sonner";
 
 interface IssuedCard {
   id: string;
@@ -17,7 +19,7 @@ interface IssuedCard {
   cardholderName: string;
   expiryDate: string;
   cvv: string;
-  type: "standard" | "premium";
+  type: "gold" | "platinum" | "merchant";
   status: "active" | "frozen" | "pending";
   createdAt: Date;
 }
@@ -27,13 +29,14 @@ export default function CardsPage() {
   const [issuedCards, setIssuedCards] = useState<IssuedCard[]>([]);
   const [showIssueForm, setShowIssueForm] = useState(false);
   const [cardholderName, setCardholderName] = useState("");
-  const [selectedType, setSelectedType] = useState<"standard" | "premium">("standard");
+  const [selectedType, setSelectedType] = useState<"gold" | "platinum" | "merchant">("gold");
   const [issuing, setIssuing] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const fees = {
-    standard: 0.15, // BTC
-    premium: 0.3, // BTC
+  const fees: Record<"gold" | "platinum" | "merchant", number> = {
+    gold: 0.15, // BTC
+    platinum: 0.3, // BTC
+    merchant: 0.45, // BTC merchant issuing
   };
 
   // Load issued cards from API
@@ -85,12 +88,12 @@ export default function CardsPage() {
 
   const handleIssueCard = async () => {
     if (!cardholderName || cardholderName.trim().length < 3) {
-      alert("Please enter a valid cardholder name (minimum 3 characters)");
+      toast.error("Please enter a valid cardholder name (minimum 3 characters)");
       return;
     }
 
     if (!user?.id) {
-      alert("Please log in to issue a card");
+      toast.error("Please log in to issue a card");
       return;
     }
 
@@ -126,14 +129,13 @@ export default function CardsPage() {
       // Reset form
       setShowIssueForm(false);
       setCardholderName("");
-      setSelectedType("standard");
+      setSelectedType("gold");
 
-      alert(
-        `${selectedType === "premium" ? "Platinum" : "Gold"} virtual card issued successfully! Fee of ${fees[selectedType]} BTC has been charged.`
-      );
+      const label = selectedType === "platinum" ? "Platinum" : selectedType === "merchant" ? "Merchant" : "Gold";
+      toast.success(`${label} issued successfully! Fee of ${fees[selectedType]} BTC has been charged.`);
     } catch (error) {
       console.error("Card issuance error:", error);
-      alert("Failed to issue card. Please ensure you have sufficient balance and try again.");
+      toast.error("Failed to issue card. Please ensure you have sufficient balance and try again.");
     } finally {
       setIssuing(false);
     }
@@ -183,10 +185,15 @@ export default function CardsPage() {
             Issue and manage your virtual payment cards
           </p>
         </div>
-        <Button onClick={() => setShowIssueForm(!showIssueForm)} className="gap-2">
-          <Plus className="h-4 w-4" />
-          Issue New Card
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" asChild>
+            <Link href="/dashboard/cards/giftcards">Issue Gift Card</Link>
+          </Button>
+          <Button onClick={() => setShowIssueForm(!showIssueForm)} className="gap-2">
+            <Plus className="h-4 w-4" />
+            Issue New Card
+          </Button>
+        </div>
       </div>
 
       {/* Issue New Card Form */}
@@ -212,37 +219,52 @@ export default function CardsPage() {
 
             <div className="space-y-2">
               <Label>Card Type</Label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <button
-                  onClick={() => setSelectedType("standard")}
+                  onClick={() => setSelectedType("gold")}
                   className={`rounded-lg border-2 p-4 text-left transition-all ${
-                    selectedType === "standard"
+                    selectedType === "gold"
                       ? "border-accent-500 bg-accent-500/10"
                       : "border-border hover:border-accent-500/50"
                   }`}
                 >
                   <div className="space-y-1">
-                    <p className="font-semibold">Standard</p>
-                    <p className="text-xs text-muted-foreground">Gold Visa issuance</p>
-                    <p className="text-lg font-bold text-accent-600">{fees.standard} BTC</p>
+                    <p className="font-semibold">Gold Visa</p>
+                    <p className="text-xs text-muted-foreground">Core issuance</p>
+                    <p className="text-lg font-bold text-accent-600">{fees.gold} BTC</p>
                   </div>
                 </button>
 
                 <button
-                  onClick={() => setSelectedType("premium")}
+                  onClick={() => setSelectedType("platinum")}
                   className={`rounded-lg border-2 p-4 text-left transition-all ${
-                    selectedType === "premium"
+                    selectedType === "platinum"
                       ? "border-accent-500 bg-accent-500/10"
                       : "border-border hover:border-accent-500/50"
                   }`}
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <p className="font-semibold">Premium</p>
+                      <p className="font-semibold">Platinum Visa</p>
                       <Badge variant="outline" className="text-xs">Recommended</Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground">Platinum Visa issuance</p>
-                    <p className="text-lg font-bold text-accent-600">{fees.premium} BTC</p>
+                    <p className="text-xs text-muted-foreground">Higher limits & controls</p>
+                    <p className="text-lg font-bold text-accent-600">{fees.platinum} BTC</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setSelectedType("merchant")}
+                  className={`rounded-lg border-2 p-4 text-left transition-all ${
+                    selectedType === "merchant"
+                      ? "border-accent-500 bg-accent-500/10"
+                      : "border-border hover:border-accent-500/50"
+                  }`}
+                >
+                  <div className="space-y-1">
+                    <p className="font-semibold">Merchant Visa</p>
+                    <p className="text-xs text-muted-foreground">Enterprise issuing</p>
+                    <p className="text-lg font-bold text-accent-600">{fees.merchant} BTC</p>
                   </div>
                 </button>
               </div>
@@ -270,7 +292,7 @@ export default function CardsPage() {
                 ) : (
                   <>
                     <CreditCard className="h-4 w-4 mr-2" />
-                    Issue Card (${fees[selectedType]})
+                    Issue Card ({fees[selectedType]} BTC)
                   </>
                 )}
               </Button>

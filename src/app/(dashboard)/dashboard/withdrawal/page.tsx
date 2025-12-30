@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/components/providers/auth-provider";
 import { AlertCircle, TrendingDown, Clock } from "lucide-react";
+import { toast } from "sonner";
 
 export default function WithdrawalPage() {
   const { user } = useAuth();
@@ -78,22 +79,22 @@ export default function WithdrawalPage() {
     const total = withdrawalAmount + fee;
 
     if (!amount || withdrawalAmount <= 0) {
-      alert("Please enter a valid amount");
+      toast.error("Please enter a valid amount");
       return;
     }
 
     if (!walletAddress || walletAddress.length < 20) {
-      alert("Please enter a valid wallet address");
+      toast.error("Please enter a valid wallet address");
       return;
     }
 
     if (total > availableBalance) {
-      alert(`Insufficient balance. You need $${total.toFixed(2)} (including $${fee} fee)`);
+      toast.error(`Insufficient balance. You need $${total.toFixed(2)} (including $${fee} fee)`);
       return;
     }
 
     if (withdrawalAmount < 10) {
-      alert("Minimum withdrawal amount is $10");
+      toast.error("Minimum withdrawal amount is $10");
       return;
     }
 
@@ -126,17 +127,17 @@ export default function WithdrawalPage() {
       });
 
       if (response.ok) {
-        alert("Withdrawal request submitted! We'll process it within 24 hours.");
+        toast.success("Withdrawal request submitted! We'll process it within 24 hours.");
         setAmount("");
         setWalletAddress("");
         await fetchBalanceAndWithdrawals();
       } else {
         const error = await response.json();
-        alert(`Failed to submit withdrawal: ${error.message || "Unknown error"}`);
+        toast.error(`Failed to submit withdrawal: ${error.message || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Withdrawal error:", error);
-      alert("Failed to submit withdrawal. Please try again.");
+      toast.error("Failed to submit withdrawal. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -335,7 +336,7 @@ export default function WithdrawalPage() {
                         {withdrawal.currency} {withdrawal.amount.toLocaleString()}
                       </p>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        {withdrawal.network} • {new Date(withdrawal.createdAt).toLocaleString()}
+                        {withdrawal.network} - {new Date(withdrawal.createdAt).toLocaleString()}
                       </p>
                     </div>
                   </div>

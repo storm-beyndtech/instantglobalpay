@@ -5,13 +5,14 @@ import { motion } from "framer-motion";
 import { Eye, EyeOff, Copy, Lock, Unlock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 interface VirtualCardProps {
   cardNumber: string;
   cardholderName: string;
   expiryDate: string;
   cvv: string;
-  type: "standard" | "premium";
+  type: "gold" | "platinum" | "merchant" | "giftcard";
   status: "active" | "frozen" | "pending";
   onFreeze?: () => void;
   onUnfreeze?: () => void;
@@ -36,18 +37,21 @@ export function VirtualCard({
       return number.match(/.{1,4}/g)?.join(" ") || number;
     }
     const lastFour = number.slice(-4);
-    return `•••• •••• •••• ${lastFour}`;
+    return `**** **** **** ${lastFour}`;
   };
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
-    // Could add a toast notification here
-    alert(`${label} copied to clipboard!`);
+    toast.success(`${label} copied to clipboard!`);
   };
 
   const gradientClass =
-    type === "premium"
+    type === "platinum"
       ? "bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900"
+      : type === "merchant"
+      ? "bg-gradient-to-br from-blue-500 via-cyan-600 to-slate-900"
+      : type === "giftcard"
+      ? "bg-gradient-to-br from-amber-500 via-orange-600 to-rose-700"
       : "bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900";
 
   return (
@@ -162,7 +166,7 @@ export function VirtualCard({
                   </button>
                 </div>
                 <p className="text-slate-900 font-mono text-2xl font-bold tracking-wider">
-                  {showCVV ? cvv : "•••"}
+                  {showCVV ? cvv : "***"}
                 </p>
               </div>
 

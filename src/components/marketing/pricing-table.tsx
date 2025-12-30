@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -28,68 +27,26 @@ export interface PricingFee {
 
 export interface PricingTableProps {
   plans: PricingPlan[];
-  /**
-   * Show custom pricing section
-   * @default true
-   */
   showCustom?: boolean;
-  /**
-   * Optional fee items to show before the custom CTA
-   */
   fees?: PricingFee[];
 }
 
 export function PricingTable({ plans, showCustom = true, fees }: PricingTableProps) {
-  const [isAnnual, setIsAnnual] = React.useState(false);
-
   return (
     <div className="space-y-8">
-      {/* Toggle */}
-      <div className="flex items-center justify-center gap-4">
-        <span
-          className={cn(
-            "text-sm font-medium transition-colors",
-            !isAnnual ? "text-foreground" : "text-muted-foreground"
-          )}
-        >
-          Monthly
-        </span>
-
-        <button
-          onClick={() => setIsAnnual(!isAnnual)}
-          className={cn(
-            "relative w-14 h-7 rounded-pill transition-colors duration-300",
-            isAnnual ? "bg-primary-500" : "bg-muted"
-          )}
-          aria-label="Toggle pricing period"
-        >
-          <motion.div
-            className="absolute top-1 w-5 h-5 rounded-full bg-white shadow-sm"
-            animate={{ x: isAnnual ? 32 : 4 }}
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          />
-        </button>
-
-        <span
-          className={cn(
-            "text-sm font-medium transition-colors",
-            isAnnual ? "text-foreground" : "text-muted-foreground"
-          )}
-        >
-          Annual
-        </span>
-
-        {isAnnual && (
-          <Badge variant="success" className="ml-2">
-            Save 20%
-          </Badge>
-        )}
+      <div className="text-center space-y-2">
+        <Badge variant="glass" className="shadow-depth">
+          Issuance fees
+        </Badge>
+        <p className="text-sm text-muted-foreground">
+          BTC-denominated pricing for card issuing and gateway rails—matched to instantsglobal-p.com/pricing.
+        </p>
       </div>
 
       {/* Pricing Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
         {plans.map((plan) => {
-          const price = isAnnual ? plan.annualPrice : plan.monthlyPrice;
+          const price = plan.monthlyPrice;
 
           return (
             <Card
@@ -118,18 +75,16 @@ export function PricingTable({ plans, showCustom = true, fees }: PricingTablePro
 
               <CardContent className="space-y-6">
                 {/* Price */}
-                <div>
-                  <div className="flex items-baseline gap-1">
+                <div className="space-y-1">
+                  <div className="flex items-baseline gap-2">
                     <span className="text-4xl font-bold tracking-tight">
-                      ${price}
+                      {price} BTC
                     </span>
-                    <span className="text-muted-foreground">/month</span>
+                    <span className="text-sm text-muted-foreground">per card issuance</span>
                   </div>
-                  {isAnnual && (
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ${plan.annualPrice * 12} billed annually
-                    </p>
-                  )}
+                  <p className="text-xs text-muted-foreground">
+                    Gateway access, auth, and support included. No hidden surcharges.
+                  </p>
                 </div>
 
                 {/* CTA */}
