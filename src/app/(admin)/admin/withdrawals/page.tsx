@@ -61,7 +61,7 @@ export default function WithdrawalsApprovalPage() {
 
       const response = await fetch("/api/withdrawals?limit=100&sort=-createdAt", { headers });
       const data = await response.json();
-      setWithdrawals(data || []);
+      setWithdrawals(data?.withdrawals || data || []);
     } catch (error) {
       console.error("Failed to fetch withdrawals:", error);
     } finally {
@@ -118,6 +118,9 @@ export default function WithdrawalsApprovalPage() {
   };
 
   const handleProcessPending = async () => {
+    const pendingIds = withdrawals.filter((w) => w.status === "pending").map((w) => w._id);
+    if (pendingIds.length === 0) return;
+
     setBatchProcessing(true);
     try {
       const token = localStorage.getItem("token");
@@ -129,6 +132,7 @@ export default function WithdrawalsApprovalPage() {
       const response = await fetch("/api/withdrawals/admin/process-pending", {
         method: "POST",
         headers,
+        body: JSON.stringify({ transactionIds: pendingIds }),
       });
 
       if (response.ok) {
@@ -148,8 +152,8 @@ export default function WithdrawalsApprovalPage() {
     }
   };
 
-  const handleApprove = async (withdrawalId: string) => {
-    setProcessingId(withdrawalId);
+  const handleApprove = async (withdrawal: Withdrawal) => {
+    setProcessingId(withdrawal._id);
     try {
       const token = localStorage.getItem("token");
       const headers = {
@@ -157,9 +161,14 @@ export default function WithdrawalsApprovalPage() {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
 
-      const response = await fetch(`/api/withdrawals/${withdrawalId}/approve`, {
-        method: "POST",
+      const response = await fetch(`/api/withdrawals/${withdrawal._id}`, {
+        method: "PUT",
         headers,
+        body: JSON.stringify({
+          email: withdrawal.user.email,
+          amount: withdrawal.amount,
+          status: "approved",
+        }),
       });
 
       if (response.ok) {
@@ -178,11 +187,11 @@ export default function WithdrawalsApprovalPage() {
     }
   };
 
-  const handleReject = async (withdrawalId: string) => {
+  const handleReject = async (withdrawal: Withdrawal) => {
     const reason = prompt("Enter rejection reason:");
     if (!reason) return;
 
-    setProcessingId(withdrawalId);
+    setProcessingId(withdrawal._id);
     try {
       const token = localStorage.getItem("token");
       const headers = {
@@ -190,10 +199,15 @@ export default function WithdrawalsApprovalPage() {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
 
-      const response = await fetch(`/api/withdrawals/${withdrawalId}/reject`, {
-        method: "POST",
+      const response = await fetch(`/api/withdrawals/${withdrawal._id}`, {
+        method: "PUT",
         headers,
-        body: JSON.stringify({ reason }),
+        body: JSON.stringify({
+          email: withdrawal.user.email,
+          amount: withdrawal.amount,
+          status: "rejected",
+          reason,
+        }),
       });
 
       if (response.ok) {
@@ -220,9 +234,10 @@ export default function WithdrawalsApprovalPage() {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
 
-      const response = await fetch(`/api/withdrawals/${withdrawalId}/retry`, {
+      const response = await fetch("/api/withdrawals/admin/process-pending", {
         method: "POST",
         headers,
+        body: JSON.stringify({ transactionIds: [withdrawalId] }),
       });
 
       if (response.ok) {
@@ -254,7 +269,9 @@ export default function WithdrawalsApprovalPage() {
 
       if (response.ok) {
         await fetchWithdrawals();
-        alert(`Status: ${data.status}\nNOWPayments: ${data.nowpaymentsStatus || "N/A"}`);
+        const status = data.withdrawal?.status || data.status || "unknown";
+        const providerStatus = data.withdrawal?.nowpaymentsStatus || data.nowpaymentsStatus || "N/A";
+        alert(`Status: ${status}\nNOWPayments: ${providerStatus}`);
       } else {
         alert(`Failed to check status: ${data.message || "Unknown error"}`);
       }
@@ -502,7 +519,7 @@ export default function WithdrawalsApprovalPage() {
                     <div className="flex gap-2 pt-2 border-t border-border/50">
                       <Button
                         size="sm"
-                        onClick={() => handleApprove(withdrawal._id)}
+                        onClick={() => handleApprove(withdrawal)}
                         disabled={processingId === withdrawal._id}
                         className="gap-2"
                       >
@@ -512,7 +529,7 @@ export default function WithdrawalsApprovalPage() {
                       <Button
                         size="sm"
                         variant="destructive"
-                        onClick={() => handleReject(withdrawal._id)}
+                        onClick={() => handleReject(withdrawal)}
                         disabled={processingId === withdrawal._id}
                         className="gap-2"
                       >

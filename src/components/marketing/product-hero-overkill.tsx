@@ -55,6 +55,10 @@ export interface ProductHeroOverkillProps {
 	 */
 	heroAsset?: any;
 	/**
+	 * Optional className overrides for asset wrapper (e.g., dark-mode tweaks)
+	 */
+	heroAssetClassName?: string;
+	/**
 	 * Custom visual component (overrides heroAsset)
 	 */
 	customVisual?: React.ComponentType;
@@ -81,6 +85,7 @@ export function ProductHeroOverkill({
 	trustIndicators,
 	heroAsset,
 	customVisual: CustomVisual,
+	heroAssetClassName,
 	visualBackground = "network",
 	colorTheme = "green",
 }: ProductHeroOverkillProps) {
@@ -247,7 +252,7 @@ export function ProductHeroOverkill({
 									alt="Product hero asset"
 									width={400}
 									height={700}
-									className="w-full h-auto object-contain"
+									className={`w-full h-auto object-contain ${heroAssetClassName || ""}`}
 								/>
 							</div>
 						) : null}

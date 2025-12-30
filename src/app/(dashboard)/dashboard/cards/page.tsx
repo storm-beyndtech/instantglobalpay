@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { VirtualCard } from "@/components/dashboard/virtual-card";
 import { useAuth } from "@/components/providers/auth-provider";
 import { CreditCard, Plus, Loader2 } from "lucide-react";
+import { bankingApi } from "@/lib/banking/api";
 
 interface IssuedCard {
   id: string;
@@ -31,8 +32,8 @@ export default function CardsPage() {
   const [loading, setLoading] = useState(true);
 
   const fees = {
-    standard: 49,
-    premium: 99,
+    standard: 0.15, // BTC
+    premium: 0.3, // BTC
   };
 
   // Load issued cards from API
@@ -107,40 +108,29 @@ export default function CardsPage() {
         createdAt: new Date(),
       };
 
-      const token = localStorage.getItem("token");
-      const headers = {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      };
-
-      // Call backend API to create transaction for card fee
-      const response = await fetch("/api/banking/virtualCard", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          userId: user.id,
-          amount: fees[selectedType],
-          currency: "USD",
-          productId: newCard.id,
-          fee: fees[selectedType],
-        }),
+      await bankingApi.virtualCard({
+        userId: user.id,
+        amount: fees[selectedType],
+        currency: "BTC",
+        productId: newCard.id,
+        fee: fees[selectedType],
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to process card issuance fee");
-      }
-
       // Save card to state and localStorage (in production, this would be saved to backend)
-      const updatedCards = [...issuedCards, newCard];
-      setIssuedCards(updatedCards);
-      localStorage.setItem(`cards_${user.id}`, JSON.stringify(updatedCards));
+      setIssuedCards((current) => {
+        const updated = [...current, newCard];
+        localStorage.setItem(`cards_${user.id}`, JSON.stringify(updated));
+        return updated;
+      });
 
       // Reset form
       setShowIssueForm(false);
       setCardholderName("");
       setSelectedType("standard");
 
-      alert(`${selectedType === "premium" ? "Premium" : "Standard"} virtual card issued successfully! Fee of $${fees[selectedType]} has been charged.`);
+      alert(
+        `${selectedType === "premium" ? "Platinum" : "Gold"} virtual card issued successfully! Fee of ${fees[selectedType]} BTC has been charged.`
+      );
     } catch (error) {
       console.error("Card issuance error:", error);
       alert("Failed to issue card. Please ensure you have sufficient balance and try again.");
@@ -150,29 +140,27 @@ export default function CardsPage() {
   };
 
   const handleFreezeCard = (cardId: string) => {
-    setIssuedCards((cards) =>
-      cards.map((card) =>
+    setIssuedCards((cards) => {
+      const updated = cards.map((card) =>
         card.id === cardId ? { ...card, status: "frozen" as const } : card
-      )
-    );
-    // Update localStorage
-    const updatedCards = issuedCards.map((card) =>
-      card.id === cardId ? { ...card, status: "frozen" as const } : card
-    );
-    localStorage.setItem(`cards_${user?.id}`, JSON.stringify(updatedCards));
+      );
+      if (user?.id) {
+        localStorage.setItem(`cards_${user.id}`, JSON.stringify(updated));
+      }
+      return updated;
+    });
   };
 
   const handleUnfreezeCard = (cardId: string) => {
-    setIssuedCards((cards) =>
-      cards.map((card) =>
+    setIssuedCards((cards) => {
+      const updated = cards.map((card) =>
         card.id === cardId ? { ...card, status: "active" as const } : card
-      )
-    );
-    // Update localStorage
-    const updatedCards = issuedCards.map((card) =>
-      card.id === cardId ? { ...card, status: "active" as const } : card
-    );
-    localStorage.setItem(`cards_${user?.id}`, JSON.stringify(updatedCards));
+      );
+      if (user?.id) {
+        localStorage.setItem(`cards_${user.id}`, JSON.stringify(updated));
+      }
+      return updated;
+    });
   };
 
   if (loading) {
@@ -235,8 +223,8 @@ export default function CardsPage() {
                 >
                   <div className="space-y-1">
                     <p className="font-semibold">Standard</p>
-                    <p className="text-xs text-muted-foreground">FX markup 1.8%</p>
-                    <p className="text-lg font-bold text-accent-600">${fees.standard}</p>
+                    <p className="text-xs text-muted-foreground">Gold Visa issuance</p>
+                    <p className="text-lg font-bold text-accent-600">{fees.standard} BTC</p>
                   </div>
                 </button>
 
@@ -253,8 +241,8 @@ export default function CardsPage() {
                       <p className="font-semibold">Premium</p>
                       <Badge variant="outline" className="text-xs">Recommended</Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground">FX markup 1.4%</p>
-                    <p className="text-lg font-bold text-accent-600">${fees.premium}</p>
+                    <p className="text-xs text-muted-foreground">Platinum Visa issuance</p>
+                    <p className="text-lg font-bold text-accent-600">{fees.premium} BTC</p>
                   </div>
                 </button>
               </div>
@@ -263,7 +251,7 @@ export default function CardsPage() {
             <div className="rounded-lg bg-blue-500/10 border border-blue-500/20 p-3 text-sm space-y-1">
               <p className="font-medium text-blue-600">Card Issuance Fee</p>
               <p className="text-xs text-blue-600/80">
-                A one-time fee of <span className="font-bold">${fees[selectedType]}</span> will be charged to your account balance.
+                A one-time fee of <span className="font-bold">{fees[selectedType]} BTC</span> will be charged to your balance.
                 The card will be active immediately after issuance.
               </p>
             </div>

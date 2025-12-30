@@ -58,7 +58,7 @@ export function HeroOverkill() {
 						>
 							<Badge variant="glass" className="shadow-depth gap-2 px-4 py-1.5">
 								<Sparkles className="h-3.5 w-3.5 text-primary-500" />
-								<span>Now supporting 89 countries worldwide</span>
+								<span>Modern banking solutions</span>
 							</Badge>
 						</motion.div>
 
@@ -70,7 +70,7 @@ export function HeroOverkill() {
 							transition={{ duration: 0.8, delay: 0.3 }}
 						>
 							<h1
-								className="text-[2rem] md:text-[3.8rem]  font-bold font-mono"
+								className="text-[2.2rem] md:text-[3.8rem]  font-bold font-mono"
 								style={{ lineHeight: "1.15" }}
 							>
 								Financial infrastructure{" "}
@@ -87,8 +87,8 @@ export function HeroOverkill() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.8, delay: 0.4 }}
 						>
-							Issue cards in 89+ countries. Hold 50+ currencies. Execute payouts instantly. Built for
-							companies at global scale.
+							Underwrite cards in 89+ countries, hold 50+ currencies, and move money instantly. Built as a
+							real bank core with payment-gateway polish, so finance and ops get the same rock-solid rails.
 						</motion.p>
 
 						{/* CTA Buttons */}
@@ -206,7 +206,7 @@ export function HeroOverkill() {
 									opacity: [0, 1, 0],
 								}}
 								transition={{
-									duration: 3 + (i * 0.3),
+									duration: 3 + i * 0.3,
 									repeat: Infinity,
 									delay: i * 0.5,
 									ease: "easeInOut",

@@ -55,14 +55,14 @@ export function StatCard({ icon: Icon, label, value, className }: StatCardProps)
 			<div className="w-full relative z-10 flex items-center sm:gap-8 gap-4">
 				{/* Icon */}
 				<div className="inline-flex items-center justify-center sm:w-18 sm:h-18 flex-shrink-0 rounded-xl bg-primary-500/5">
-					<Icon className="h-6 w-6 text-primary-500 dark:text-primary-400" strokeWidth={1} />
+					<Icon className="h-4 sm:h-6 w-4 sm:w-6 text-primary-500 dark:text-primary-400" strokeWidth={1} />
 				</div>
 				<div className="text-left">
 					{/* Value */}
 					<p className="text-3xl font-bold tracking-tight">{value}</p>
 
 					{/* Label */}
-					<p className="text-sm font-semibold text-foreground/80">{label}</p>
+					<p className="!text-xs !sm:text-sm font-semibold text-foreground/60">{label}</p>
 				</div>
 			</div>
 

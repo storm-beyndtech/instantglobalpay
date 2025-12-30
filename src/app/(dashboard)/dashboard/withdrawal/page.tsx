@@ -48,9 +48,12 @@ export default function WithdrawalPage() {
       // Fetch pending withdrawals
       const withdrawalsRes = await fetch("/api/withdrawals", { headers });
       const withdrawalsData = await withdrawalsRes.json();
-      setPendingWithdrawals(
-        (withdrawalsData || []).filter((w: any) => w.status === "pending" || w.status === "processing")
-      );
+      const list = Array.isArray(withdrawalsData?.withdrawals)
+        ? withdrawalsData.withdrawals
+        : Array.isArray(withdrawalsData)
+        ? withdrawalsData
+        : [];
+      setPendingWithdrawals(list.filter((w: any) => w.status === "pending" || w.status === "processing"));
     } catch (error) {
       console.error("Failed to fetch data:", error);
     } finally {

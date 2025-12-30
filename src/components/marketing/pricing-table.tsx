@@ -20,6 +20,12 @@ export interface PricingPlan {
   cta: string;
 }
 
+export interface PricingFee {
+  label: string;
+  description?: string;
+  fee: string;
+}
+
 export interface PricingTableProps {
   plans: PricingPlan[];
   /**
@@ -27,9 +33,13 @@ export interface PricingTableProps {
    * @default true
    */
   showCustom?: boolean;
+  /**
+   * Optional fee items to show before the custom CTA
+   */
+  fees?: PricingFee[];
 }
 
-export function PricingTable({ plans, showCustom = true }: PricingTableProps) {
+export function PricingTable({ plans, showCustom = true, fees }: PricingTableProps) {
   const [isAnnual, setIsAnnual] = React.useState(false);
 
   return (
@@ -148,6 +158,38 @@ export function PricingTable({ plans, showCustom = true }: PricingTableProps) {
           );
         })}
       </div>
+
+      {/* Itemized Fees */}
+      {fees && fees.length > 0 && (
+        <div className="w-full overflow-hidden rounded-3xl border border-border bg-card/70 shadow-depth-lg">
+          <div className="px-4 py-6 md:px-8 md:py-10 border-b border-border/70">
+            <div className="space-y-2">
+              <h2 className="text-display-md font-bold">Payment options & fees</h2>
+              <p className="text-muted-foreground max-w-3xl">
+                Itemized rates for every rail we support—transparent BTC pricing with no hidden surcharges.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+            {fees.map((item) => (
+              <div key={item.label} className="flex items-start gap-3 px-4 py-5 md:px-8 md:py-6">
+                <div className="mt-1">
+                  <CheckCircle2 className="h-5 w-5 text-accent-500" />
+                </div>
+                <div className="flex-1 space-y-1">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                    <span className="text-sm font-semibold text-foreground whitespace-nowrap">{item.fee}</span>
+                  </div>
+                  {item.description && (
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Custom Pricing */}
       {showCustom && (

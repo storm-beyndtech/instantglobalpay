@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { PricingTable, type PricingPlan } from "@/components/marketing/pricing-table";
+import { PricingTable, type PricingPlan, type PricingFee } from "@/components/marketing/pricing-table";
 import { FAQSection, type FAQ } from "@/components/marketing/faq-section";
 import { FeatureCardMarquee, type FeatureCardItem } from "@/components/marketing/feature-card-marquee";
 import {
@@ -11,59 +11,82 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 const pricingPlans: PricingPlan[] = [
   {
-    id: "starter",
-    name: "Starter",
-    description: "Perfect for small businesses getting started with global payments",
-    monthlyPrice: 49,
-    annualPrice: 39,
+    id: "gold-card",
+    name: "Gold Visa Card",
+    description: "Core issuance with gateway access for lean teams",
+    monthlyPrice: 0.15,
+    annualPrice: 0.15,
     features: [
-      "Up to $100K monthly transaction volume",
-      "Multi-currency accounts (10 currencies)",
-      "5 virtual cards included",
-      "Basic API access",
-      "Email support",
-      "Standard settlement times",
+      "Card issuance fee: 0.15 BTC",
+      "Debit card transactions: 0.10 BTC",
+      "Net banking: 0.05 BTC, UPI: 0.02 BTC",
+      "Virtual accounts & mobile wallets: 0.08 / 0.07 BTC",
+      "Secure payment gateway with MFA + encryption",
+      "24/7 support and no hidden fees",
     ],
-    cta: "Get started",
+    cta: "Issue gold card",
   },
   {
-    id: "growth",
-    name: "Growth",
-    description: "For growing businesses scaling their international operations",
-    monthlyPrice: 199,
-    annualPrice: 159,
+    id: "platinum-card",
+    name: "Platinum Visa Card",
+    description: "Higher limits and richer controls for scaling businesses",
+    monthlyPrice: 0.3,
+    annualPrice: 0.3,
     highlighted: true,
     badge: "Most Popular",
     features: [
-      "Up to $1M monthly transaction volume",
-      "Multi-currency accounts (50+ currencies)",
-      "25 virtual + physical cards",
-      "Full API access with webhooks",
-      "Priority email + chat support",
-      "Same-day settlement options",
-      "Advanced spending controls",
-      "Custom reporting",
+      "Card issuance fee: 0.30 BTC",
+      "All gold payment rails included",
+      "Merchant Visa capability with gateway controls",
+      "Advanced spending controls and reporting",
+      "Dedicated priority support",
+      "Bank-grade security, MFA, continuous monitoring",
     ],
-    cta: "Start free trial",
+    cta: "Issue platinum card",
   },
   {
-    id: "scale",
-    name: "Scale",
-    description: "Enterprise-grade infrastructure for high-volume operations",
-    monthlyPrice: 499,
-    annualPrice: 399,
+    id: "merchant-card",
+    name: "Merchant Visa Card",
+    description: "Enterprise issuance with bundled gateway pricing",
+    monthlyPrice: 0.45,
+    annualPrice: 0.45,
     features: [
-      "Unlimited transaction volume",
-      "Multi-currency accounts (all supported)",
+      "Card issuance fee: 0.45 BTC",
+      "Gateway rates: cards 0.10 BTC, net banking 0.05 BTC",
+      "Supports debit, UPI, virtual accounts, mobile wallets",
       "Unlimited cards with custom designs",
-      "Dedicated API infrastructure",
-      "24/7 phone + dedicated support",
-      "Instant settlement",
-      "Advanced fraud protection",
-      "Custom integrations",
-      "Dedicated account manager",
+      "Custom integrations and dedicated account manager",
+      "No hidden fees, transparent BTC pricing",
     ],
-    cta: "Contact sales",
+    cta: "Talk to sales",
+  },
+];
+
+const gatewayFees: PricingFee[] = [
+  {
+    label: "Debit card transactions",
+    description: "Card acceptance with bank-grade auth flows.",
+    fee: "0.10 BTC",
+  },
+  {
+    label: "Net banking",
+    description: "Direct account pulls with instant confirmations.",
+    fee: "0.05 BTC",
+  },
+  {
+    label: "UPI payments",
+    description: "Real-time UPI collect requests and approvals.",
+    fee: "0.02 BTC",
+  },
+  {
+    label: "Virtual accounts",
+    description: "Dedicated virtual account routing per customer.",
+    fee: "0.08 BTC",
+  },
+  {
+    label: "Mobile wallets",
+    description: "Wallet top-ups and payouts across markets.",
+    fee: "0.07 BTC",
   },
 ];
 
@@ -129,12 +152,12 @@ export default function PricingPage() {
             </Badge>
 
             <h1 className="text-display-xl font-bold tracking-tight">
-              Simple, transparent pricing
+              Transparent BTC-first pricing
             </h1>
 
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Choose the plan that fits your business needs. Scale up or down
-              anytime with no hidden fees or long-term commitments.
+              Card issuance and payment rails priced exactly as advertised. Built as a bank core, delivered with gateway
+              simplicity—no hidden fees.
             </p>
           </div>
         </div>
@@ -143,7 +166,7 @@ export default function PricingPage() {
       {/* Pricing Table */}
       <section className="section-spacing-md w-full">
         <div className="container-wide container-padding">
-          <PricingTable plans={pricingPlans} showCustom={true} />
+          <PricingTable plans={pricingPlans} showCustom={true} fees={gatewayFees} />
         </div>
       </section>
 

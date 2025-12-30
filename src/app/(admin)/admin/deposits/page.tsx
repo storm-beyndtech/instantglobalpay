@@ -82,8 +82,8 @@ export default function DepositsApprovalPage() {
     setFilteredDeposits(filtered);
   };
 
-  const handleApprove = async (depositId: string) => {
-    setProcessingId(depositId);
+  const handleApprove = async (deposit: Deposit) => {
+    setProcessingId(deposit._id);
     try {
       const token = localStorage.getItem("token");
       const headers = {
@@ -91,9 +91,14 @@ export default function DepositsApprovalPage() {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
 
-      const response = await fetch(`/api/deposits/${depositId}/approve`, {
-        method: "POST",
+      const response = await fetch(`/api/deposits/${deposit._id}`, {
+        method: "PUT",
         headers,
+        body: JSON.stringify({
+          email: deposit.user.email,
+          amount: deposit.amount,
+          status: "approved",
+        }),
       });
 
       if (response.ok) {
@@ -112,11 +117,11 @@ export default function DepositsApprovalPage() {
     }
   };
 
-  const handleReject = async (depositId: string) => {
+  const handleReject = async (deposit: Deposit) => {
     const reason = prompt("Enter rejection reason:");
     if (!reason) return;
 
-    setProcessingId(depositId);
+    setProcessingId(deposit._id);
     try {
       const token = localStorage.getItem("token");
       const headers = {
@@ -124,10 +129,10 @@ export default function DepositsApprovalPage() {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
 
-      const response = await fetch(`/api/deposits/${depositId}/reject`, {
-        method: "POST",
+      const response = await fetch(`/api/deposits/${deposit._id}`, {
+        method: "PUT",
         headers,
-        body: JSON.stringify({ reason }),
+        body: JSON.stringify({ email: deposit.user.email, amount: deposit.amount, status: "rejected", reason }),
       });
 
       if (response.ok) {
@@ -314,7 +319,7 @@ export default function DepositsApprovalPage() {
                     <div className="flex gap-2 pt-2 border-t border-border/50">
                       <Button
                         size="sm"
-                        onClick={() => handleApprove(deposit._id)}
+                        onClick={() => handleApprove(deposit)}
                         disabled={processingId === deposit._id}
                         className="gap-2"
                       >
@@ -324,7 +329,7 @@ export default function DepositsApprovalPage() {
                       <Button
                         size="sm"
                         variant="destructive"
-                        onClick={() => handleReject(deposit._id)}
+                        onClick={() => handleReject(deposit)}
                         disabled={processingId === deposit._id}
                         className="gap-2"
                       >

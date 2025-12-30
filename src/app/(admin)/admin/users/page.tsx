@@ -26,6 +26,8 @@ interface User {
   lastName: string;
   email: string;
   username?: string;
+  accountNumber?: string;
+  routingNumber?: string;
   accountStatus: string;
   kycStatus: string;
   isEmailVerified: boolean;
@@ -46,6 +48,17 @@ export default function UsersManagementPage() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [editForm, setEditForm] = useState<{
+    accountStatus: string;
+    kycStatus: string;
+    deposit: string;
+    interest: string;
+    withdrawal: string;
+    bonus: string;
+    password: string;
+    accountNumber: string;
+    routingNumber: string;
+  } | null>(null);
   const limit = 20;
 
   useEffect(() => {
@@ -83,6 +96,67 @@ export default function UsersManagementPage() {
   const handleSearch = (value: string) => {
     setSearchTerm(value);
     setCurrentPage(1); // Reset to first page on search
+  };
+
+  const openUserModal = (user: User) => {
+    setSelectedUser(user);
+    setEditForm({
+      accountStatus: user.accountStatus || "active",
+      kycStatus: user.kycStatus || "pending",
+      deposit: String(user.deposit ?? 0),
+      interest: String(user.interest ?? 0),
+      withdrawal: String(user.withdrawal ?? 0),
+      bonus: String(user.bonus ?? 0),
+      password: "",
+      accountNumber: user.accountNumber || "",
+      routingNumber: user.routingNumber || "",
+    });
+  };
+
+  const handleAdminUpdate = async () => {
+    if (!selectedUser || !editForm) return;
+    setProcessingId(selectedUser._id);
+    try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      };
+
+      const payload: Record<string, any> = {
+        accountStatus: editForm.accountStatus,
+        kycStatus: editForm.kycStatus,
+        deposit: Number(editForm.deposit) || 0,
+        interest: Number(editForm.interest) || 0,
+        withdraw: Number(editForm.withdrawal) || 0,
+        bonus: Number(editForm.bonus) || 0,
+        accountNumber: editForm.accountNumber,
+        routingNumber: editForm.routingNumber,
+      };
+      if (editForm.password.trim()) {
+        payload.password = editForm.password.trim();
+      }
+
+      const response = await fetch(`/api/users/admin/${selectedUser._id}`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert(`Failed to update user: ${error.message || "Unknown error"}`);
+      } else {
+        alert("User updated");
+        await fetchUsers();
+        setSelectedUser(null);
+      }
+    } catch (error) {
+      console.error("Admin update error:", error);
+      alert("Failed to update user");
+    } finally {
+      setProcessingId(null);
+    }
   };
 
   const handleSuspend = async (userId: string) => {
@@ -385,7 +459,7 @@ export default function UsersManagementPage() {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => setSelectedUser(user)}
+                      onClick={() => openUserModal(user)}
                       disabled={processingId === user._id}
                       className="gap-2"
                     >
@@ -513,19 +587,39 @@ export default function UsersManagementPage() {
               <div>
                 <h3 className="text-sm font-semibold mb-3">Account Status</h3>
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="flex items-start gap-3 px-4 py-3 rounded-lg border border-border">
-                    <Shield className="h-5 w-5 text-muted-foreground mt-0.5" />
-                    <div className="flex-1">
+                  <div className="flex flex-col gap-2 px-4 py-3 rounded-lg border border-border">
+                    <div className="flex items-center gap-2">
+                      <Shield className="h-5 w-5 text-muted-foreground" />
                       <p className="text-xs text-muted-foreground">Account Status</p>
-                      <div className="mt-1">{getAccountStatusBadge(selectedUser.accountStatus)}</div>
                     </div>
+                    <select
+                      className="rounded-lg border border-border bg-card px-3 py-2 text-sm"
+                      value={editForm.accountStatus}
+                      onChange={(e) => setEditForm({ ...editForm, accountStatus: e.target.value })}
+                    >
+                      <option value="active">Active</option>
+                      <option value="suspended">Suspended</option>
+                      <option value="pending">Pending</option>
+                      <option value="deactivated">Deactivated</option>
+                    </select>
+                    <div className="text-xs text-muted-foreground">Current: {selectedUser.accountStatus}</div>
                   </div>
-                  <div className="flex items-start gap-3 px-4 py-3 rounded-lg border border-border">
-                    <Shield className="h-5 w-5 text-muted-foreground mt-0.5" />
-                    <div className="flex-1">
+                  <div className="flex flex-col gap-2 px-4 py-3 rounded-lg border border-border">
+                    <div className="flex items-center gap-2">
+                      <Shield className="h-5 w-5 text-muted-foreground" />
                       <p className="text-xs text-muted-foreground">KYC Status</p>
-                      <div className="mt-1">{getKYCStatusBadge(selectedUser.kycStatus)}</div>
                     </div>
+                    <select
+                      className="rounded-lg border border-border bg-card px-3 py-2 text-sm"
+                      value={editForm.kycStatus}
+                      onChange={(e) => setEditForm({ ...editForm, kycStatus: e.target.value })}
+                    >
+                      <option value="approved">Approved</option>
+                      <option value="pending">Pending</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="unverified">Unverified</option>
+                    </select>
+                    <div className="text-xs text-muted-foreground">Current: {selectedUser.kycStatus}</div>
                   </div>
                 </div>
               </div>
@@ -536,27 +630,31 @@ export default function UsersManagementPage() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="px-4 py-3 rounded-lg border border-border">
                     <p className="text-xs text-muted-foreground">Deposit</p>
-                    <p className="text-lg font-semibold mt-1 text-green-600">
-                      ${(selectedUser.deposit || 0).toLocaleString()}
-                    </p>
+                    <Input
+                      value={editForm.deposit}
+                      onChange={(e) => setEditForm({ ...editForm, deposit: e.target.value })}
+                    />
                   </div>
                   <div className="px-4 py-3 rounded-lg border border-border">
                     <p className="text-xs text-muted-foreground">Withdrawal</p>
-                    <p className="text-lg font-semibold mt-1 text-red-600">
-                      ${(selectedUser.withdrawal || 0).toLocaleString()}
-                    </p>
+                    <Input
+                      value={editForm.withdrawal}
+                      onChange={(e) => setEditForm({ ...editForm, withdrawal: e.target.value })}
+                    />
                   </div>
                   <div className="px-4 py-3 rounded-lg border border-border">
                     <p className="text-xs text-muted-foreground">Bonus</p>
-                    <p className="text-lg font-semibold mt-1">
-                      ${(selectedUser.bonus || 0).toLocaleString()}
-                    </p>
+                    <Input
+                      value={editForm.bonus}
+                      onChange={(e) => setEditForm({ ...editForm, bonus: e.target.value })}
+                    />
                   </div>
                   <div className="px-4 py-3 rounded-lg border border-border">
                     <p className="text-xs text-muted-foreground">Interest</p>
-                    <p className="text-lg font-semibold mt-1">
-                      ${(selectedUser.interest || 0).toLocaleString()}
-                    </p>
+                    <Input
+                      value={editForm.interest}
+                      onChange={(e) => setEditForm({ ...editForm, interest: e.target.value })}
+                    />
                   </div>
                 </div>
                 <div className="mt-4 px-4 py-3 rounded-lg bg-accent-500/10 border border-accent-500/20">
@@ -596,7 +694,41 @@ export default function UsersManagementPage() {
                       </p>
                     </div>
                   </div>
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="px-4 py-3 rounded-lg border border-border">
+                      <p className="text-xs text-muted-foreground">Account Number</p>
+                      <Input
+                        value={editForm.accountNumber}
+                        onChange={(e) => setEditForm({ ...editForm, accountNumber: e.target.value })}
+                      />
+                    </div>
+                    <div className="px-4 py-3 rounded-lg border border-border">
+                      <p className="text-xs text-muted-foreground">Routing Number</p>
+                      <Input
+                        value={editForm.routingNumber}
+                        onChange={(e) => setEditForm({ ...editForm, routingNumber: e.target.value })}
+                      />
+                    </div>
+                    <div className="px-4 py-3 rounded-lg border border-border md:col-span-2">
+                      <p className="text-xs text-muted-foreground">Reset Password</p>
+                      <Input
+                        type="password"
+                        placeholder="Set new password"
+                        value={editForm.password}
+                        onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
+                      />
+                    </div>
+                  </div>
                 </div>
+              </div>
+
+              <div className="flex justify-end gap-3 pt-2 border-t border-border">
+                <Button variant="outline" onClick={() => setSelectedUser(null)}>
+                  Cancel
+                </Button>
+                <Button onClick={handleAdminUpdate} disabled={processingId === selectedUser._id}>
+                  {processingId === selectedUser._id ? "Updating..." : "Save Changes"}
+                </Button>
               </div>
             </div>
           </div>

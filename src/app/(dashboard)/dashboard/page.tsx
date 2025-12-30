@@ -226,7 +226,7 @@ export default function DashboardPage() {
         <StatGrid
           items={[
             { icon: ShieldCheck, label: "KYC pending", value: "—" },
-            { icon: ArrowUpRight, label: "External fees", value: `${process.env.NEXT_PUBLIC_EXTERNAL_TRANSFER_FEE_PERCENT || 2.5}%`, description: "Adjust in Admin" },
+            { icon: ArrowUpRight, label: "External fees", value: `${process.env.NEXT_PUBLIC_EXTERNAL_TRANSFER_FEE_PERCENT || 2.5}%`, description: "" },
             { icon: ArrowDownRight, label: "Gift card fee", value: `$${process.env.NEXT_PUBLIC_GIFT_CARD_FEE || 4.5}` },
             { icon: Plane, label: "Flight vendors", value: "2" },
           ]}

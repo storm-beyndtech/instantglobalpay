@@ -24,6 +24,7 @@ import {
   Sparkles,
   LayoutPanelTop,
 } from "lucide-react";
+import aboutHeroAsset from "@/assets/finance-2.svg";
 
 const values = [
   {
@@ -77,9 +78,9 @@ export default function AboutPage() {
       <ProductHeroOverkill
         badge="ABOUT INSTANTGLOBAL"
         badgeIcon={Globe2}
-        headline="Building the future of"
-        headlineHighlight="global payments"
-        subheadline="We're on a mission to make cross-border payments as simple as domestic transfers. No complexity, no hidden fees, no friction—just powerful infrastructure that works."
+        headline="Building the bank core behind"
+        headlineHighlight="modern payments"
+        subheadline="InstantGlobal is structured as a bank at the core and a gateway at the edge—so every card, account, and payout lands with banking-grade controls and gateway-grade polish."
         primaryCTA={{
           label: "Explore our products",
           href: "/products",
@@ -93,31 +94,33 @@ export default function AboutPage() {
           { icon: Globe2, text: "89 Countries" },
           { icon: Users, text: "10K+ Businesses" },
         ]}
-        visualBackground="minimal"
-        colorTheme="green"
+        heroAsset={aboutHeroAsset}
+        heroAssetClassName="dark:brightness-90"
+        visualBackground="network"
+        colorTheme="purple"
       />
 
       {/* Pillars Section */}
       <section className="section-spacing-md">
         <div className="container-wide container-padding">
-          <Card variant="glass" padding="lg" className="max-w-5xl mx-auto relative overflow-hidden">
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-card/70 p-8 md:p-12 shadow-depth-lg">
             <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 via-accent-500/5 to-transparent pointer-events-none" />
             <div className="relative space-y-8">
               <div className="text-center space-y-2">
                 <Badge variant="glass" className="shadow-depth">The InstantGlobal way</Badge>
                 <h2 className="text-display-md font-bold">How we build and ship</h2>
-                <p className="text-muted-foreground max-w-3xl mx-auto">
-                  Opinionated on design, relentless on reliability, and honest about the controls that keep money safe.
+                <p className="text-muted-foreground max-w-4xl mx-auto">
+                  Bank-grade controls with gateway polish. Every release blends security, speed, and clarity so ops and finance stay in lockstep.
                 </p>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-3">
-                {pillars.map((pillar, index) => {
+              <div className="grid gap-5 md:grid-cols-3">
+                {pillars.map((pillar) => {
                   const Icon = pillar.icon;
                   return (
                     <div
                       key={pillar.title}
-                      className="rounded-2xl border border-border bg-card/60 p-5 shadow-depth hover:shadow-depth-lg transition-all"
+                      className="rounded-2xl border border-border bg-card/80 p-5 shadow-depth hover:shadow-depth-lg transition-all"
                     >
                       <div className="flex items-center gap-2 text-sm font-semibold text-foreground/90 mb-3">
                         <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500/10 text-primary-600">
@@ -131,7 +134,7 @@ export default function AboutPage() {
                 })}
               </div>
             </div>
-          </Card>
+          </div>
         </div>
       </section>
 

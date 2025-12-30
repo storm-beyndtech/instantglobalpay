@@ -26,8 +26,11 @@ export default function TransfersPage() {
     name: string;
     email: string;
     accountNumber: string;
+    routingNumber?: string;
   } | null>(null);
   const [lookupError, setLookupError] = useState("");
+  const [recipientAccountNumber, setRecipientAccountNumber] = useState("");
+  const [recipientRoutingNumber, setRecipientRoutingNumber] = useState("");
 
   useEffect(() => {
     setFeePercent(Number(process.env.NEXT_PUBLIC_EXTERNAL_TRANSFER_FEE_PERCENT || 2.5));
@@ -39,13 +42,31 @@ export default function TransfersPage() {
   }, [externalAmount, feePercent]);
 
   const handleVerifyRecipient = async () => {
-    if (!recipientEmail || !recipientEmail.includes("@")) {
+    const hasEmail = recipientEmail.trim().length > 0;
+    const hasAccountDetails = recipientAccountNumber.trim().length > 0 && recipientRoutingNumber.trim().length > 0;
+
+    if (!hasEmail && !hasAccountDetails) {
+      setLookupError("Enter an email or both account and routing number");
+      return;
+    }
+
+    if (hasEmail && !recipientEmail.includes("@")) {
       setLookupError("Please enter a valid email address");
       return;
     }
 
-    // Don't allow self-transfers
-    if (recipientEmail.toLowerCase() === user?.email?.toLowerCase()) {
+    if (hasEmail && recipientEmail.toLowerCase() === user?.email?.toLowerCase()) {
+      setLookupError("You cannot transfer to yourself");
+      return;
+    }
+
+    if (
+      hasAccountDetails &&
+      user?.account?.number &&
+      user?.account?.routingNumber &&
+      recipientAccountNumber.trim() === user.account.number &&
+      recipientRoutingNumber.trim() === user.account.routingNumber
+    ) {
       setLookupError("You cannot transfer to yourself");
       return;
     }
@@ -62,13 +83,38 @@ export default function TransfersPage() {
         headers["Authorization"] = `Bearer ${token}`;
       }
 
-      const response = await fetch(`/api/users/lookup?email=${encodeURIComponent(recipientEmail)}`, {
-        headers,
-      });
+      const params = new URLSearchParams();
+      if (hasEmail) {
+        params.append("email", recipientEmail.trim());
+      }
+      if (hasAccountDetails) {
+        params.append("accountNumber", recipientAccountNumber.trim());
+        params.append("routingNumber", recipientRoutingNumber.trim());
+      }
+
+      const response = await fetch(`/api/users/lookup?${params.toString()}`, { headers });
 
       const data = await response.json();
 
       if (data.exists && data.user) {
+        if (data.user.id === user?.id) {
+          setLookupError("You cannot transfer to yourself");
+          setRecipientVerified(false);
+          setRecipientData(null);
+          return;
+        }
+
+        if (
+          hasAccountDetails &&
+          (data.user.accountNumber !== recipientAccountNumber.trim() ||
+            data.user.routingNumber !== recipientRoutingNumber.trim())
+        ) {
+          setLookupError("Account or routing number does not match the recipient's record");
+          setRecipientVerified(false);
+          setRecipientData(null);
+          return;
+        }
+
         setRecipientVerified(true);
         setRecipientData(data.user);
         setLookupError("");
@@ -92,6 +138,8 @@ export default function TransfersPage() {
     setRecipientVerified(false);
     setRecipientData(null);
     setLookupError("");
+    setRecipientAccountNumber("");
+    setRecipientRoutingNumber("");
   };
 
   const handleInternal = () => {
@@ -142,9 +190,14 @@ export default function TransfersPage() {
             <CardDescription>Instant, zero-fee transfers between users on InstantGlobal.</CardDescription>
           </CardHeader>
           <CardContent className="p-0 mt-6 space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="recipientEmail">Recipient Email</Label>
-              <div className="flex gap-2">
+            
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="recipientEmail">Recipient verification</Label>
+              <span className="text-xs text-muted-foreground">Use email or account + routing</span>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="space-y-2">
                 <Input
                   id="recipientEmail"
                   type="email"
@@ -163,42 +216,88 @@ export default function TransfersPage() {
                     lookupError && "border-red-500"
                   )}
                 />
-                {!recipientVerified ? (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleVerifyRecipient}
-                    disabled={lookingUp || !recipientEmail}
-                  >
-                    {lookingUp ? "Verifying..." : "Verify"}
-                  </Button>
-                ) : (
-                  <Button type="button" variant="outline" onClick={handleClearRecipient}>
-                    Change
-                  </Button>
-                )}
+                <p className="text-[11px] text-muted-foreground">Email lookup for existing platform users</p>
               </div>
-              {lookupError && (
-                <p className="text-xs text-red-600 flex items-center gap-1">
-                  <span>⚠</span> {lookupError}
-                </p>
-              )}
-              {recipientVerified && recipientData && (
-                <div className="rounded-lg border border-green-500/20 bg-green-500/10 px-3 py-2">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-green-700 dark:text-green-400">
-                        {recipientData.name}
-                      </p>
-                      <p className="text-xs text-green-600/80 dark:text-green-400/80">
-                        Account: {recipientData.accountNumber}
-                      </p>
-                    </div>
-                    <Badge variant="success">Verified</Badge>
-                  </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-2">
+                  <Input
+                    placeholder="Account #"
+                    value={recipientAccountNumber}
+                    onChange={(e) => {
+                      setRecipientAccountNumber(e.target.value);
+                      if (recipientVerified) {
+                        setRecipientVerified(false);
+                        setRecipientData(null);
+                      }
+                    }}
+                    disabled={lookingUp || recipientVerified}
+                  />
+                  <p className="text-[11px] text-muted-foreground">Internal account number</p>
                 </div>
+                <div className="space-y-2">
+                  <Input
+                    placeholder="Routing #"
+                    value={recipientRoutingNumber}
+                    onChange={(e) => {
+                      setRecipientRoutingNumber(e.target.value);
+                      if (recipientVerified) {
+                        setRecipientVerified(false);
+                        setRecipientData(null);
+                      }
+                    }}
+                    disabled={lookingUp || recipientVerified}
+                  />
+                  <p className="text-[11px] text-muted-foreground">Routing for internal rails</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              {!recipientVerified ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleVerifyRecipient}
+                  disabled={
+                    lookingUp ||
+                    (!recipientEmail.trim() &&
+                      !(recipientAccountNumber.trim() && recipientRoutingNumber.trim()))
+                  }
+                >
+                  {lookingUp ? "Verifying..." : "Verify recipient"}
+                </Button>
+              ) : (
+                <Button type="button" variant="outline" onClick={handleClearRecipient}>
+                  Change
+                </Button>
               )}
             </div>
+            {lookupError && (
+              <p className="text-xs text-red-600 flex items-center gap-1">
+                <span>!</span> {lookupError}
+              </p>
+            )}
+            {recipientVerified && recipientData && (
+              <div className="rounded-lg border border-green-500/20 bg-green-500/10 px-3 py-2">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <p className="text-sm font-medium text-green-700 dark:text-green-400">
+                      {recipientData.name}
+                    </p>
+                    <p className="text-xs text-green-600/80 dark:text-green-400/80">
+                      Account: {recipientData.accountNumber} - Routing: {recipientData.routingNumber}
+                    </p>
+                    {recipientData.email && (
+                      <p className="text-xs text-green-600/80 dark:text-green-400/80">
+                        Email: {recipientData.email}
+                      </p>
+                    )}
+                  </div>
+                  <Badge variant="success">Verified</Badge>
+                </div>
+              </div>
+            )}
+          </div>
+
             <div className="space-y-2">
               <Label htmlFor="amount">Amount (USD)</Label>
               <Input
