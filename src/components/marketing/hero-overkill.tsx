@@ -69,11 +69,8 @@ export function HeroOverkill() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.8, delay: 0.3 }}
 						>
-							<h1
-								className="text-[2.2rem] md:text-[3.8rem]  font-bold font-mono"
-								style={{ lineHeight: "1.15" }}
-							>
-								Financial infrastructure{" "}
+							<h1 className="text-[2.2rem] md:text-[3.8rem]  font-bold font-mono leading-[1.3] sm:leading-[1.1] tracking-tight">
+								Digital banking infrastructure{" "}
 								<span className="bg-gradient-to-br from-primary-400 to-primary-700 bg-clip-text text-transparent">
 									without borders
 								</span>
@@ -87,8 +84,8 @@ export function HeroOverkill() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.8, delay: 0.4 }}
 						>
-							Underwrite cards in 89+ countries, hold 50+ currencies, and move money instantly. Built as a
-							real bank core with payment-gateway polish, so finance and ops get the same rock-solid rails.
+							Experience seamless banking with our state-of-the-art digital platform. Manage your finances,
+							make payments, and invest with ease..
 						</motion.p>
 
 						{/* CTA Buttons */}
