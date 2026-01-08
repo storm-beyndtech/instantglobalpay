@@ -66,12 +66,12 @@ export function HeroOrbit({ size = "default", opacity = 0.6, className }: HeroOr
             rotate: {
               duration: 58,
               repeat: Infinity,
-              ease: "linear",
+              ease: [0.4, 0.0, 0.2, 1],
             },
             strokeDashoffset: {
               duration: 29,
               repeat: Infinity,
-              ease: "linear",
+              ease: [0.4, 0.0, 0.2, 1],
             },
           }}
         />
@@ -97,13 +97,13 @@ export function HeroOrbit({ size = "default", opacity = 0.6, className }: HeroOr
               duration: 38,
               delay: 2,
               repeat: Infinity,
-              ease: "linear",
+              ease: [0.4, 0.0, 0.2, 1],
             },
             strokeDashoffset: {
               duration: 19,
               delay: 2,
               repeat: Infinity,
-              ease: "linear",
+              ease: [0.4, 0.0, 0.2, 1],
             },
           }}
         />
@@ -128,12 +128,12 @@ export function HeroOrbit({ size = "default", opacity = 0.6, className }: HeroOr
             rotate: {
               duration: 30,
               repeat: Infinity,
-              ease: "linear",
+              ease: [0.4, 0.0, 0.2, 1],
             },
             strokeDashoffset: {
               duration: 15,
               repeat: Infinity,
-              ease: "linear",
+              ease: [0.4, 0.0, 0.2, 1],
             },
           }}
         />

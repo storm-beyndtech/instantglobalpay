@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
 
 const kindLabel: Record<string, string> = {
+  deposit: "Deposit",
+  withdraw: "Withdrawal",
   internal_transfer: "Internal Transfer",
   external_transfer: "External Transfer",
   crypto_deposit: "Crypto Deposit",
@@ -68,7 +70,7 @@ export default function TransactionsPage() {
 
     // Type filter
     if (typeFilter !== "all") {
-      filtered = filtered.filter((t) => t.kind === typeFilter);
+      filtered = filtered.filter((t) => t.type === typeFilter);
     }
 
     // Status filter
@@ -93,7 +95,7 @@ export default function TransactionsPage() {
       filtered = filtered.filter(
         (t) =>
           t.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          t.kind?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          t.type?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           t.currency?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
@@ -116,7 +118,7 @@ export default function TransactionsPage() {
   const endIndex = startIndex + itemsPerPage;
   const paginatedTxns = filteredTxns.slice(startIndex, endIndex);
 
-  const uniqueTypes = Array.from(new Set(allTxns.map((t) => t.kind).filter(Boolean)));
+  const uniqueTypes = Array.from(new Set(allTxns.map((t) => t.type).filter(Boolean)));
 
   if (loading) {
     return (
@@ -283,7 +285,7 @@ export default function TransactionsPage() {
               <tbody className="divide-y divide-border/50">
                 {paginatedTxns.map((t) => (
                   <tr key={t.id || t._id} className="align-middle hover:bg-accent/5 transition-colors">
-                    <td className="py-3 font-semibold">{kindLabel[t.kind] ?? t.kind}</td>
+                    <td className="py-3 font-semibold">{kindLabel[t.type] ?? t.type}</td>
                     <td className="py-3 text-muted-foreground">
                       {t.description || "No description"}
                     </td>

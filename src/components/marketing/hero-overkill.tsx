@@ -4,7 +4,7 @@ import * as React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MarketingBlurOrbs, CompactOrbitalLines, HeroNetworkVisual } from "@/components/marketing/visuals";
+import { MarketingBlurOrbs, HeroOrbit, HeroNetworkVisual } from "@/components/marketing/visuals";
 import { ArrowRight, Globe, Shield, CheckCircle2, Sparkles } from "lucide-react";
 import heroAsset from "@/assets/methods.svg";
 import Image from "next/image";
@@ -34,10 +34,8 @@ export function HeroOverkill() {
 			<div className="absolute inset-0 -z-10">
 				<MarketingBlurOrbs opacity={0.25} />
 
-				{/* Bolder, Weirder Orbital Lines */}
-				<div className="absolute inset-0 opacity-60">
-					<CompactOrbitalLines parallax={true} parallaxIntensity={0.8} />
-				</div>
+				{/* Classic Orbital Rings */}
+				<HeroOrbit size="lg" opacity={0.6} />
 			</div>
 
 			{/* Content Container */}

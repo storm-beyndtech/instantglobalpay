@@ -1,5 +1,6 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { PricingHero } from "@/components/marketing/pricing-hero";
+import { ContentSection } from "@/components/marketing/content-section";
 import { PricingTable, type PricingPlan, type PricingFee } from "@/components/marketing/pricing-table";
 import { FAQSection, type FAQ } from "@/components/marketing/faq-section";
 import { FeatureCardMarquee, type FeatureCardItem } from "@/components/marketing/feature-card-marquee";
@@ -7,7 +8,7 @@ import {
   BackgroundGrid,
   SubtleBlurOrbs,
 } from "@/components/marketing/visuals";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const pricingPlans: PricingPlan[] = [
   {
@@ -144,22 +145,21 @@ export default function PricingPage() {
       </div>
 
       {/* Hero Section */}
+      <PricingHero />
+
+      {/* Pricing Information */}
       <section className="section-spacing-md w-full">
         <div className="container-wide container-padding">
-          <div className="max-w-4xl mx-auto text-center space-y-5">
-            <Badge variant="glass" className="shadow-depth">
-              Pricing
-            </Badge>
-
-            <h1 className="text-display-xl font-bold tracking-tight">
-              Transparent BTC-first pricing
-            </h1>
-
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
-              Card issuance and payment rails priced exactly as advertised. Built as a bank core, delivered with gateway
-              simplicity-no hidden fees.
-            </p>
-          </div>
+          <ContentSection
+            title="Pricing"
+            paragraphs={[
+              "InstantGlobal offers some of the most competitive payment gateway prices in the industry. Enjoy an all-in-one business experience with our comprehensive payment infrastructure. Our integrated platform provides a one-stop solution for businesses of all sizes.",
+              "Receive payments via debit/credit cards, net banking, UPI, virtual accounts, mobile wallets, and more. Whether you're a startup, a mid-sized business, or a large enterprise, InstantGlobal offers the best pricing tailored to your needs.",
+              "We prioritize security, providing every merchant with a safe payment gateway and continuous customer support for all your digital payment needs—with no hidden fees.",
+            ]}
+            variant="fade-up"
+            align="left"
+          />
         </div>
       </section>
 

@@ -19,17 +19,9 @@ interface Withdrawal {
   walletAddress: string;
   network: string;
   status: string;
-  nowpaymentsStatus?: string;
-  nowpaymentsPaymentId?: string;
   failureReason?: string;
   createdAt: string;
   processedAt?: string;
-}
-
-interface PayoutBalance {
-  currency: string;
-  available: number;
-  pending: number;
 }
 
 export default function WithdrawalsApprovalPage() {
@@ -39,12 +31,9 @@ export default function WithdrawalsApprovalPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [processingId, setProcessingId] = useState<string | null>(null);
-  const [batchProcessing, setBatchProcessing] = useState(false);
-  const [balances, setBalances] = useState<PayoutBalance[]>([]);
 
   useEffect(() => {
     fetchWithdrawals();
-    fetchBalances();
   }, []);
 
   useEffect(() => {
@@ -69,33 +58,6 @@ export default function WithdrawalsApprovalPage() {
     }
   };
 
-  const fetchBalances = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const headers: Record<string, string> = {};
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-      }
-
-      // Fetch balances for common currencies
-      const currencies = ["USDC", "USDT", "BTC"];
-      const balancePromises = currencies.map(async (currency) => {
-        try {
-          const response = await fetch(`/api/withdrawals/admin/balance?currency=${currency}`, { headers });
-          const data = await response.json();
-          return { currency, available: data.available || 0, pending: data.pending || 0 };
-        } catch {
-          return { currency, available: 0, pending: 0 };
-        }
-      });
-
-      const balanceResults = await Promise.all(balancePromises);
-      setBalances(balanceResults);
-    } catch (error) {
-      console.error("Failed to fetch balances:", error);
-    }
-  };
-
   const filterWithdrawals = () => {
     let filtered = withdrawals;
 
@@ -115,41 +77,6 @@ export default function WithdrawalsApprovalPage() {
     }
 
     setFilteredWithdrawals(filtered);
-  };
-
-  const handleProcessPending = async () => {
-    const pendingIds = withdrawals.filter((w) => w.status === "pending").map((w) => w._id);
-    if (pendingIds.length === 0) return;
-
-    setBatchProcessing(true);
-    try {
-      const token = localStorage.getItem("token");
-      const headers = {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      };
-
-      const response = await fetch("/api/withdrawals/admin/process-pending", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ transactionIds: pendingIds }),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        await fetchWithdrawals();
-        await fetchBalances();
-        alert(`Batch processing complete: ${result.processed || 0} withdrawals processed`);
-      } else {
-        const error = await response.json();
-        alert(`Failed to process: ${error.message || "Unknown error"}`);
-      }
-    } catch (error) {
-      console.error("Batch processing error:", error);
-      alert("Failed to process pending withdrawals");
-    } finally {
-      setBatchProcessing(false);
-    }
   };
 
   const handleApprove = async (withdrawal: Withdrawal) => {
@@ -173,7 +100,6 @@ export default function WithdrawalsApprovalPage() {
 
       if (response.ok) {
         await fetchWithdrawals();
-        await fetchBalances();
         alert("Withdrawal approved successfully!");
       } else {
         const error = await response.json();
@@ -270,9 +196,8 @@ export default function WithdrawalsApprovalPage() {
       if (response.ok) {
         await fetchWithdrawals();
         const status = data.withdrawal?.status || data.status || "unknown";
-        const providerStatus = data.withdrawal?.nowpaymentsStatus || data.nowpaymentsStatus || "N/A";
-        alert(`Status: ${status}\nNOWPayments: ${providerStatus}`);
-      } else {
+        alert(`Status: ${status}`);
+      } else{
         alert(`Failed to check status: ${data.message || "Unknown error"}`);
       }
     } catch (error) {
@@ -287,23 +212,7 @@ export default function WithdrawalsApprovalPage() {
     navigator.clipboard.writeText(text);
   };
 
-  const getStatusBadge = (status: string, nowpaymentsStatus?: string) => {
-    if (nowpaymentsStatus) {
-      switch (nowpaymentsStatus.toLowerCase()) {
-        case "finished":
-        case "confirmed":
-          return <Badge variant="success">Completed</Badge>;
-        case "sending":
-        case "waiting":
-          return <Badge variant="warning">Processing</Badge>;
-        case "failed":
-        case "expired":
-          return <Badge variant="destructive">Failed</Badge>;
-        default:
-          return <Badge variant="outline">{nowpaymentsStatus}</Badge>;
-      }
-    }
-
+  const getStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
       case "pending":
         return <Badge variant="warning">Pending</Badge>;
@@ -337,35 +246,21 @@ export default function WithdrawalsApprovalPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Withdrawal Approvals</h1>
-          <p className="text-sm text-muted-foreground mt-1">Review and process pending withdrawals</p>
+          <p className="text-sm text-muted-foreground mt-1">Review and process pending withdrawals (Manual Mode)</p>
         </div>
-        <Button
-          onClick={handleProcessPending}
-          disabled={batchProcessing || withdrawals.filter((w) => w.status === "pending").length === 0}
-          className="gap-2"
-        >
-          <Zap className="h-4 w-4" />
-          {batchProcessing ? "Processing..." : "Batch Process Pending"}
-        </Button>
       </div>
 
-      {/* Payout Balances */}
-      {balances.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-3">
-          {balances.map((balance) => (
-            <Card key={balance.currency} variant="glass" padding="lg">
-              <div className="text-center">
-                <p className="text-xs text-muted-foreground">Payout Balance - {balance.currency}</p>
-                <p className="text-2xl font-semibold mt-1">
-                  {balance.available.toLocaleString()} {balance.currency}
-                </p>
-                {balance.pending > 0 && (
-                  <p className="text-xs text-orange-600 mt-1">Pending: {balance.pending.toLocaleString()}</p>
-                )}
-              </div>
-            </Card>
-          ))}
-        </div>
+      {/* Manual Mode Notice */}
+      {withdrawals.filter((w) => w.status === "pending").length > 0 && (
+        <Card variant="glass" padding="lg">
+          <div className="flex items-center gap-3">
+            <AlertTriangle className="h-5 w-5 text-yellow-600" />
+            <div>
+              <p className="font-semibold">Manual Processing Mode</p>
+              <p className="text-sm text-muted-foreground">All withdrawals require manual approval and processing.</p>
+            </div>
+          </div>
+        </Card>
       )}
 
       {/* Filters */}
@@ -464,14 +359,9 @@ export default function WithdrawalsApprovalPage() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-semibold">{withdrawal.user.name}</p>
-                        {getStatusBadge(withdrawal.status, withdrawal.nowpaymentsStatus)}
+                        {getStatusBadge(withdrawal.status)}
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">{withdrawal.user.email}</p>
-                      {withdrawal.nowpaymentsPaymentId && (
-                        <p className="text-xs text-muted-foreground mt-0.5 font-mono">
-                          NP ID: {withdrawal.nowpaymentsPaymentId}
-                        </p>
-                      )}
                     </div>
                     <div className="text-right">
                       <p className="text-lg font-semibold">

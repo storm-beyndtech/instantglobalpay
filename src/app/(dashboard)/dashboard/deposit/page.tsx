@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,10 +9,15 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/components/providers/auth-provider";
 import { Wallet, Building, Globe, CheckCircle, Copy } from "lucide-react";
+import { toast } from "sonner";
 
 export default function DepositPage() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("crypto");
+
+  // Pending deposits state
+  const [pendingDeposits, setPendingDeposits] = useState<any[]>([]);
+  const [loadingPending, setLoadingPending] = useState(true);
 
   // Crypto deposit state
   const [cryptoAmount, setCryptoAmount] = useState("");
@@ -39,9 +44,75 @@ export default function DepositPage() {
     BSC: { USDT: "0x..." },
   };
 
+  // Fetch pending deposits on mount
+  const fetchPendingDeposits = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      const response = await fetch("/api/deposits", { headers });
+      if (response.ok) {
+        const data = await response.json();
+        // Filter for pending deposits belonging to current user
+        const userPending = data.filter(
+          (d: any) =>
+            d.status === "pending" &&
+            (d.user?.id === user?.id || d.user?._id === user?.id)
+        );
+        setPendingDeposits(userPending);
+      }
+    } catch (error) {
+      console.error("Failed to fetch pending deposits:", error);
+    } finally {
+      setLoadingPending(false);
+    }
+  };
+
+  // Cancel/delete a pending deposit
+  const handleCancelDeposit = async (depositId: string) => {
+    if (!window.confirm("Are you sure you want to cancel this deposit request?")) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`/api/deposits/${depositId}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      if (response.ok) {
+        toast.success("Deposit request cancelled successfully");
+        // Refresh pending deposits
+        fetchPendingDeposits();
+      } else {
+        const error = await response.json();
+        toast.error(`Failed to cancel: ${error.message || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Cancel deposit error:", error);
+      toast.error("Failed to cancel deposit");
+    }
+  };
+
+  // Fetch pending deposits when user is available
+  useEffect(() => {
+    if (user?.id) {
+      fetchPendingDeposits();
+    }
+  }, [user?.id]);
+
   const handleCryptoDeposit = async () => {
     if (!cryptoAmount || parseFloat(cryptoAmount) <= 0) {
-      alert("Please enter a valid amount");
+      toast.error("Please enter a valid amount");
       return;
     }
 
@@ -59,31 +130,26 @@ export default function DepositPage() {
         method: "POST",
         headers,
         body: JSON.stringify({
+          id: user?.id,
           amount: parseFloat(cryptoAmount),
-          currency: "USD",
-          walletData: {
-            network: selectedNetwork,
-            coinName: selectedCoin,
-            address: platformWallets[selectedNetwork as keyof typeof platformWallets]?.[selectedCoin] || "",
-          },
-          user: {
-            id: user?.id,
-            email: user?.email,
-            name: user?.name?.full || "",
-          },
+          coinName: selectedCoin,
+          network: selectedNetwork,
+          address: platformWallets[selectedNetwork as keyof typeof platformWallets]?.[selectedCoin] || "",
+          convertedAmount: parseFloat(cryptoAmount),
         }),
       });
 
       if (response.ok) {
-        alert("Crypto deposit submitted! Admin will approve after blockchain confirmation.");
+        toast.success("Crypto deposit submitted! Admin will approve after blockchain confirmation.");
         setCryptoAmount("");
+        fetchPendingDeposits(); // Refresh pending deposits list
       } else {
         const error = await response.json();
-        alert(`Failed to submit deposit: ${error.message || "Unknown error"}`);
+        toast.error(`Failed to submit deposit: ${error.message || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Crypto deposit error:", error);
-      alert("Failed to submit deposit. Please try again.");
+      toast.error("Failed to submit deposit. Please try again.");
     } finally {
       setSubmittingCrypto(false);
     }
@@ -91,7 +157,7 @@ export default function DepositPage() {
 
   const handleBankDeposit = async () => {
     if (!bankAmount || !bankProof || !bankReference) {
-      alert("Please fill in all fields and upload proof of payment");
+      toast.error("Please fill in all fields and upload proof of payment");
       return;
     }
 
@@ -120,17 +186,18 @@ export default function DepositPage() {
       });
 
       if (response.ok) {
-        alert("Bank deposit submitted! Admin will verify and approve.");
+        toast.success("Bank deposit submitted! Admin will verify and approve.");
         setBankAmount("");
         setBankProof(null);
         setBankReference("");
+        fetchPendingDeposits(); // Refresh pending deposits list
       } else {
         const error = await response.json();
-        alert(`Failed to submit: ${error.message || "Unknown error"}`);
+        toast.error(`Failed to submit: ${error.message || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Bank deposit error:", error);
-      alert("Failed to submit deposit.");
+      toast.error("Failed to submit deposit.");
     } finally {
       setSubmittingBank(false);
     }
@@ -138,7 +205,7 @@ export default function DepositPage() {
 
   const handleWireDeposit = async () => {
     if (!wireAmount || !wireProof || !wireReference) {
-      alert("Please fill in all fields and upload proof of payment");
+      toast.error("Please fill in all fields and upload proof of payment");
       return;
     }
 
@@ -167,17 +234,18 @@ export default function DepositPage() {
       });
 
       if (response.ok) {
-        alert("Wire transfer submitted! Admin will verify and approve.");
+        toast.success("Wire transfer submitted! Admin will verify and approve.");
         setWireAmount("");
         setWireProof(null);
         setWireReference("");
+        fetchPendingDeposits(); // Refresh pending deposits list
       } else {
         const error = await response.json();
-        alert(`Failed to submit: ${error.message || "Unknown error"}`);
+        toast.error(`Failed to submit: ${error.message || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Wire deposit error:", error);
-      alert("Failed to submit deposit.");
+      toast.error("Failed to submit deposit.");
     } finally {
       setSubmittingWire(false);
     }
@@ -185,7 +253,7 @@ export default function DepositPage() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    alert("Address copied to clipboard!");
+    toast.success("Address copied to clipboard!");
   };
 
   return (
@@ -194,6 +262,53 @@ export default function DepositPage() {
         <h1 className="text-3xl font-semibold tracking-tight">Deposit Funds</h1>
         <p className="text-sm text-muted-foreground mt-1">Add funds to your account via crypto, bank, or wire transfer</p>
       </div>
+
+      {/* Pending Deposits Section */}
+      {!loadingPending && pendingDeposits.length > 0 && (
+        <Card variant="glass" padding="lg" className="border-amber-500/20 bg-amber-500/5">
+          <CardHeader className="p-0 space-y-2">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Badge variant="warning">Pending</Badge>
+              You have {pendingDeposits.length} pending deposit{pendingDeposits.length > 1 ? "s" : ""}
+            </CardTitle>
+            <CardDescription>
+              You can cancel pending deposits to create new ones
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 mt-4 space-y-3">
+            {pendingDeposits.map((deposit) => (
+              <div
+                key={deposit._id || deposit.id}
+                className="flex items-center justify-between p-4 rounded-lg border border-border bg-card/40"
+              >
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">
+                      {deposit.walletData?.coinName || "USD"} {deposit.amount?.toLocaleString()}
+                    </span>
+                    {deposit.walletData?.network && (
+                      <Badge variant="outline" className="text-xs">
+                        {deposit.walletData.network}
+                      </Badge>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Submitted on {new Date(deposit.date || deposit.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleCancelDeposit(deposit._id || deposit.id)}
+                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                >
+                  Cancel
+                </Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-3">

@@ -93,6 +93,8 @@ export {
 export { MissionVisionSection } from "./mission-vision-section";
 export { JourneyProgressSection } from "./journey-progress-section";
 export { ProductHeroOverkill, type ProductHeroOverkillProps } from "./product-hero-overkill";
+export { PricingHero, type PricingHeroProps } from "./pricing-hero";
+export { ContentSection, type ContentSectionProps } from "./content-section";
 
 // Re-export visual components for convenience
 export * from "./visuals";

@@ -114,32 +114,48 @@ export function PricingTable({ plans, showCustom = true, fees }: PricingTablePro
         })}
       </div>
 
-      {/* Itemized Fees */}
+      {/* Enhanced Itemized Fees */}
       {fees && fees.length > 0 && (
-        <div className="w-full overflow-hidden rounded-3xl border border-border bg-card/70 shadow-depth-lg">
-          <div className="px-4 py-6 md:px-8 md:py-10 border-b border-border/70">
-            <div className="space-y-2">
-              <h2 className="text-display-md font-bold">Payment options & fees</h2>
-              <p className="text-muted-foreground max-w-3xl">
+        <div className="w-full overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 via-card/70 to-card/60 shadow-depth-lg backdrop-blur-sm">
+          <div className="relative px-4 py-8 md:px-10 md:py-12 border-b border-border/70 bg-gradient-to-r from-primary-500/5 via-transparent to-accent-500/5">
+            <div className="relative z-10 space-y-3">
+              <Badge variant="glass" className="shadow-depth">
+                Transparent Pricing
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Payment options & fees</h2>
+              <p className="text-muted-foreground max-w-3xl text-lg">
                 Itemized rates for every rail we support—transparent BTC pricing with no hidden surcharges.
               </p>
             </div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -z-0" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
-            {fees.map((item) => (
-              <div key={item.label} className="flex items-start gap-3 px-4 py-5 md:px-8 md:py-6">
-                <div className="mt-1">
-                  <CheckCircle2 className="h-5 w-5 text-accent-500" />
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border/50">
+            {fees.map((item, index) => (
+              <div
+                key={item.label}
+                className="group relative flex items-start gap-4 px-4 py-6 md:px-10 md:py-8 hover:bg-primary-500/5 transition-all duration-300"
+              >
+                <div className="mt-1 flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500/10 to-accent-500/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <CheckCircle2 className="h-5 w-5 text-primary-500" />
+                  </div>
                 </div>
-                <div className="flex-1 space-y-1">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold text-foreground">{item.label}</p>
-                    <span className="text-sm font-semibold text-foreground whitespace-nowrap">{item.fee}</span>
+                <div className="flex-1 space-y-2">
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-base font-bold text-foreground group-hover:text-primary-600 transition-colors">
+                      {item.label}
+                    </p>
+                    <span className="text-lg font-bold text-primary-600 whitespace-nowrap px-3 py-1 rounded-lg bg-primary-500/10">
+                      {item.fee}
+                    </span>
                   </div>
                   {item.description && (
-                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
                   )}
                 </div>
+                <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-primary-500 to-accent-500 group-hover:w-full transition-all duration-500" />
               </div>
             ))}
           </div>

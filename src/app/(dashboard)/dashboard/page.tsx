@@ -168,11 +168,18 @@ export default function DashboardPage() {
 		},
 	];
 
+	const typeLabels: Record<string, string> = {
+		deposit: "Deposit",
+		withdraw: "Withdrawal",
+		internal_transfer: "Internal Transfer",
+		external_transfer: "External Transfer",
+	};
+
 	const activity: ActivityItem[] = userTransactions.slice(0, 5).map((t, index) => ({
 		id: t.id || `transaction-${index}`,
 		type: "transaction",
-		title: t.kind === "internal_transfer" ? "Internal transfer" : "External transfer",
-		details: `${t.currency} ${t.amount.toLocaleString()} - ${t.description}`,
+		title: typeLabels[t.type] || t.type || "Transaction",
+		details: `${t.currency} ${t.amount.toLocaleString()} - ${t.description || 'No description'}`,
 		timestamp: new Date(t.createdAt).toLocaleDateString(),
 		badge: { label: t.status, variant: t.status === "completed" ? "success" : "warning" },
 	}));
