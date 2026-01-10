@@ -594,8 +594,8 @@ export default function UsersManagementPage() {
                     </div>
                     <select
                       className="rounded-lg border border-border bg-card px-3 py-2 text-sm"
-                      value={editForm.accountStatus}
-                      onChange={(e) => setEditForm({ ...editForm, accountStatus: e.target.value })}
+                      value={editForm?.accountStatus || ""}
+                      onChange={(e) => setEditForm(prev => prev ? { ...prev, accountStatus: e.target.value } : null)}
                     >
                       <option value="active">Active</option>
                       <option value="suspended">Suspended</option>
@@ -611,8 +611,8 @@ export default function UsersManagementPage() {
                     </div>
                     <select
                       className="rounded-lg border border-border bg-card px-3 py-2 text-sm"
-                      value={editForm.kycStatus}
-                      onChange={(e) => setEditForm({ ...editForm, kycStatus: e.target.value })}
+                      value={editForm?.kycStatus || ""}
+                      onChange={(e) => setEditForm(prev => prev ? { ...prev, kycStatus: e.target.value } : null)}
                     >
                       <option value="approved">Approved</option>
                       <option value="pending">Pending</option>
@@ -631,29 +631,29 @@ export default function UsersManagementPage() {
                   <div className="px-4 py-3 rounded-lg border border-border">
                     <p className="text-xs text-muted-foreground">Deposit</p>
                     <Input
-                      value={editForm.deposit}
-                      onChange={(e) => setEditForm({ ...editForm, deposit: e.target.value })}
+                      value={editForm?.deposit || ""}
+                      onChange={(e) => setEditForm(prev => prev ? { ...prev, deposit: e.target.value } : null)}
                     />
                   </div>
                   <div className="px-4 py-3 rounded-lg border border-border">
                     <p className="text-xs text-muted-foreground">Withdrawal</p>
                     <Input
-                      value={editForm.withdrawal}
-                      onChange={(e) => setEditForm({ ...editForm, withdrawal: e.target.value })}
+                      value={editForm?.withdrawal || ""}
+                      onChange={(e) => setEditForm(prev => prev ? { ...prev, withdrawal: e.target.value } : null)}
                     />
                   </div>
                   <div className="px-4 py-3 rounded-lg border border-border">
                     <p className="text-xs text-muted-foreground">Bonus</p>
                     <Input
-                      value={editForm.bonus}
-                      onChange={(e) => setEditForm({ ...editForm, bonus: e.target.value })}
+                      value={editForm?.bonus || ""}
+                      onChange={(e) => setEditForm(prev => prev ? { ...prev, bonus: e.target.value } : null)}
                     />
                   </div>
                   <div className="px-4 py-3 rounded-lg border border-border">
                     <p className="text-xs text-muted-foreground">Interest</p>
                     <Input
-                      value={editForm.interest}
-                      onChange={(e) => setEditForm({ ...editForm, interest: e.target.value })}
+                      value={editForm?.interest || ""}
+                      onChange={(e) => setEditForm(prev => prev ? { ...prev, interest: e.target.value } : null)}
                     />
                   </div>
                 </div>
@@ -698,15 +698,15 @@ export default function UsersManagementPage() {
                     <div className="px-4 py-3 rounded-lg border border-border">
                       <p className="text-xs text-muted-foreground">Account Number</p>
                       <Input
-                        value={editForm.accountNumber}
-                        onChange={(e) => setEditForm({ ...editForm, accountNumber: e.target.value })}
+                        value={editForm?.accountNumber || ""}
+                        onChange={(e) => setEditForm(prev => prev ? { ...prev, accountNumber: e.target.value } : null)}
                       />
                     </div>
                     <div className="px-4 py-3 rounded-lg border border-border">
                       <p className="text-xs text-muted-foreground">Routing Number</p>
                       <Input
-                        value={editForm.routingNumber}
-                        onChange={(e) => setEditForm({ ...editForm, routingNumber: e.target.value })}
+                        value={editForm?.routingNumber || ""}
+                        onChange={(e) => setEditForm(prev => prev ? { ...prev, routingNumber: e.target.value } : null)}
                       />
                     </div>
                     <div className="px-4 py-3 rounded-lg border border-border md:col-span-2">
@@ -714,8 +714,8 @@ export default function UsersManagementPage() {
                       <Input
                         type="password"
                         placeholder="Set new password"
-                        value={editForm.password}
-                        onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
+                        value={editForm?.password || ""}
+                        onChange={(e) => setEditForm(prev => prev ? { ...prev, password: e.target.value } : null)}
                       />
                     </div>
                   </div>

@@ -293,7 +293,7 @@ export default function FlightsPage() {
                       <div className="flex items-center gap-2">
                         <MapPin className="h-4 w-4 text-accent-500" />
                         <span className="font-semibold">
-                          {flight.origin} -> {flight.destination}
+                          {flight.origin} {'->'} {flight.destination}
                         </span>
                         {flight.numberOfStops === 0 && (
                           <Badge variant="success" className="text-xs">
@@ -312,7 +312,7 @@ export default function FlightsPage() {
                           <Calendar className="h-4 w-4" />
                           {formatDateTime(flight.departureTime)}
                         </div>
-                        <span>-></span>
+                        <span>{'->'}</span>
                         <div>{formatDateTime(flight.arrivalTime)}</div>
                       </div>
 
