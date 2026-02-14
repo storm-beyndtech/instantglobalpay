@@ -19,9 +19,9 @@ export async function proxyRequest(
   try {
     const { method = "GET", body, headers = {}, token } = options;
 
-    const requestHeaders: HeadersInit = {
+    const requestHeaders: Record<string, string> = {
       "Content-Type": "application/json",
-      ...headers,
+      ...(headers as Record<string, string>),
     };
 
     // Add authorization token if provided
