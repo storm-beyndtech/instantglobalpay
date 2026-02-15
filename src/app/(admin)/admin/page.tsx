@@ -65,22 +65,44 @@ export default function AdminDashboardPage() {
         const withdrawalsData = await withdrawalsRes.json();
         const withdrawals = withdrawalsData || [];
 
-        // Fetch transactions for recent activity
-        const txnsRes = await fetch("/api/transactions?limit=10&sort=-createdAt", { headers });
+        // Fetch ALL transactions for volume calculation
+        const txnsRes = await fetch("/api/transactions?limit=1000", { headers });
         const txnsData = await txnsRes.json();
-        const transactions = txnsData || [];
+        const rawTransactions = txnsData?.transactions || txnsData;
+        const transactions = Array.isArray(rawTransactions) ? rawTransactions : [];
+
+        // Calculate volume for different time periods
+        const now = new Date();
+        const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+        const calculateVolume = (txns: any[], since: Date): number => {
+          return txns
+            .filter((t) => {
+              const txnDate = new Date(t.createdAt || t.date);
+              return txnDate >= since && t.status === "completed";
+            })
+            .reduce((sum, t) => sum + Math.abs(Number(t.amount) || 0), 0);
+        };
+
+        const volume24h = calculateVolume(transactions, oneDayAgo);
+        const volume7d = calculateVolume(transactions, sevenDaysAgo);
+        const volume30d = calculateVolume(transactions, thirtyDaysAgo);
 
         // Calculate stats
         setStats({
-          totalUsers: users.length,
-          activeUsers: users.filter((u: any) => u.accountStatus === "active").length,
-          suspendedUsers: users.filter((u: any) => u.accountStatus === "suspended").length,
-          pendingDeposits: deposits.filter((d: any) => d.status === "pending").length,
-          pendingWithdrawals: withdrawals.filter((w: any) => w.status === "pending").length,
-          pendingKYC: users.filter((u: any) => u.kycStatus === "pending").length,
-          totalVolume24h: 0, // TODO: Calculate from transactions
-          totalVolume7d: 0,
-          totalVolume30d: 0,
+          totalUsers: Array.isArray(users) ? users.length : 0,
+          activeUsers: Array.isArray(users) ? users.filter((u: any) => u.accountStatus === "active").length : 0,
+          suspendedUsers: Array.isArray(users) ? users.filter((u: any) => u.accountStatus === "suspended").length : 0,
+          pendingDeposits: Array.isArray(deposits) ? deposits.filter((d: any) => d.status === "pending").length : 0,
+          pendingWithdrawals: Array.isArray(withdrawals?.withdrawals || withdrawals)
+            ? (withdrawals?.withdrawals || withdrawals).filter((w: any) => w.status === "pending").length
+            : 0,
+          pendingKYC: Array.isArray(users) ? users.filter((u: any) => u.kycStatus === "pending").length : 0,
+          totalVolume24h: volume24h,
+          totalVolume7d: volume7d,
+          totalVolume30d: volume30d,
         });
 
         setRecentActivity(transactions.slice(0, 10));
@@ -214,6 +236,48 @@ export default function AdminDashboardPage() {
               <p className="text-2xl font-semibold mt-1">${stats.totalVolume24h.toLocaleString()}</p>
             </div>
             <ArrowRightLeft className="h-5 w-5 text-accent-500" />
+          </div>
+        </Card>
+      </div>
+
+      {/* Volume Stats */}
+      <div className="grid gap-6 md:grid-cols-3">
+        <Card variant="glass" padding="lg" className="border-t-2 border-t-accent-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-muted-foreground">24 Hour Volume</p>
+              <p className="text-2xl font-semibold mt-1">${stats.totalVolume24h.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground mt-1">Completed transactions</p>
+            </div>
+            <div className="rounded-full p-3 bg-accent-500/10">
+              <TrendingUp className="h-5 w-5 text-accent-600" />
+            </div>
+          </div>
+        </Card>
+
+        <Card variant="glass" padding="lg" className="border-t-2 border-t-blue-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-muted-foreground">7 Day Volume</p>
+              <p className="text-2xl font-semibold mt-1">${stats.totalVolume7d.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground mt-1">Weekly total</p>
+            </div>
+            <div className="rounded-full p-3 bg-blue-500/10">
+              <TrendingUp className="h-5 w-5 text-blue-600" />
+            </div>
+          </div>
+        </Card>
+
+        <Card variant="glass" padding="lg" className="border-t-2 border-t-green-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-muted-foreground">30 Day Volume</p>
+              <p className="text-2xl font-semibold mt-1">${stats.totalVolume30d.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground mt-1">Monthly total</p>
+            </div>
+            <div className="rounded-full p-3 bg-green-500/10">
+              <TrendingUp className="h-5 w-5 text-green-600" />
+            </div>
           </div>
         </Card>
       </div>

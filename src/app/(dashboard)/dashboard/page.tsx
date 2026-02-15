@@ -41,11 +41,17 @@ export default function DashboardPage() {
 
 		fetch("/api/transactions", headers ? { headers } : {})
 			.then((res) => res.json())
-			.then((res) => setTransactions(res?.transactions || res || []))
+			.then((res) => {
+				const data = res?.transactions || res;
+				setTransactions(Array.isArray(data) ? data : []);
+			})
 			.catch(() => setTransactions([]));
 		fetch("/api/users", headers ? { headers } : {})
 			.then((res) => res.json())
-			.then((res) => setUsers(res?.users || res || []))
+			.then((res) => {
+				const data = res?.users || res;
+				setUsers(Array.isArray(data) ? data : []);
+			})
 			.catch(() => setUsers([]));
 		if (user?.id) {
 			bankingApi
@@ -61,11 +67,11 @@ export default function DashboardPage() {
 		}
 	}, [user?.id]);
 
-	const primary = users[0] || { account: { balance: 0, number: "—" }, name: { first: "You", full: "You" } };
+	const primary = (Array.isArray(users) && users[0]) || { account: { balance: 0, number: "—" }, name: { first: "You", full: "You" } };
 
 	const userTransactions = useMemo(
 		() =>
-			transactions.filter(
+			(Array.isArray(transactions) ? transactions : []).filter(
 				(t) => t.user?.id === user?.id || t.userId === user?.id || t.user?._id === user?.id,
 			),
 		[transactions, user?.id],
@@ -131,7 +137,7 @@ export default function DashboardPage() {
 			},
 			{
 				label: "Active Wallets",
-				value: `${users.reduce((acc, u) => acc + (u.wallets?.length ?? 0), 0)}`,
+				value: `${Array.isArray(users) ? users.reduce((acc, u) => acc + (u.wallets?.length ?? 0), 0) : 0}`,
 				change: 1.4,
 				trend: "up",
 				description: "Multi-chain",
