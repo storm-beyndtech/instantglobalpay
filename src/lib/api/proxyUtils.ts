@@ -40,8 +40,15 @@ export async function proxyRequest(
     }
 
     const response = await fetch(`${SERVER_URL}${endpoint}`, fetchOptions);
-
-    const data = await response.json();
+    const raw = await response.text();
+    let data: any = {};
+    if (raw) {
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        data = { message: raw };
+      }
+    }
 
     return NextResponse.json(data, { status: response.status });
   } catch (error: any) {

@@ -14,6 +14,7 @@ import { toast } from "sonner";
 export default function DepositPage() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("crypto");
+  const [utility, setUtility] = useState<any>(null);
 
   // Pending deposits state
   const [pendingDeposits, setPendingDeposits] = useState<any[]>([]);
@@ -37,11 +38,14 @@ export default function DepositPage() {
   const [wireReference, setWireReference] = useState("");
   const [submittingWire, setSubmittingWire] = useState(false);
 
-  // Platform wallet addresses (admin will fill these)
-  const platformWallets: Record<string, Record<string, string>> = {
-    ETH: { USDC: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb", USDT: "0x..." },
-    TRX: { USDT: "TYDzYx4W9n8Z7M5K6P3Q2R1S..." },
-    BSC: { USDT: "0x..." },
+  // Platform wallet addresses from utility settings
+  const getWalletAddress = (network: string, coin: string) => {
+    const matches = (utility?.coins || []).find(
+      (c: any) =>
+        String(c.network || "").toUpperCase() === String(network).toUpperCase() &&
+        String(c.name || "").toUpperCase() === String(coin).toUpperCase()
+    );
+    return matches?.address || "";
   };
 
   // Fetch pending deposits on mount
@@ -110,6 +114,19 @@ export default function DepositPage() {
     }
   }, [user?.id]);
 
+  useEffect(() => {
+    const loadUtility = async () => {
+      try {
+        const res = await fetch("/api/utils");
+        const data = await res.json();
+        setUtility(data || null);
+      } catch (error) {
+        console.error("Failed to load utility settings:", error);
+      }
+    };
+    loadUtility();
+  }, []);
+
   const handleCryptoDeposit = async () => {
     if (!cryptoAmount || parseFloat(cryptoAmount) <= 0) {
       toast.error("Please enter a valid amount");
@@ -134,7 +151,7 @@ export default function DepositPage() {
           amount: parseFloat(cryptoAmount),
           coinName: selectedCoin,
           network: selectedNetwork,
-          address: platformWallets[selectedNetwork as keyof typeof platformWallets]?.[selectedCoin] || "",
+          address: getWalletAddress(selectedNetwork, selectedCoin),
           convertedAmount: parseFloat(cryptoAmount),
         }),
       });
@@ -380,12 +397,12 @@ export default function DepositPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <code className="flex-1 text-xs font-mono bg-muted px-3 py-2 rounded truncate">
-                    {platformWallets[selectedNetwork as keyof typeof platformWallets]?.[selectedCoin] || "Address not available"}
+                    {getWalletAddress(selectedNetwork, selectedCoin) || "Address not available"}
                   </code>
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => copyToClipboard(platformWallets[selectedNetwork as keyof typeof platformWallets]?.[selectedCoin] || "")}
+                    onClick={() => copyToClipboard(getWalletAddress(selectedNetwork, selectedCoin) || "")}
                   >
                     <Copy className="h-4 w-4" />
                   </Button>
@@ -426,19 +443,19 @@ export default function DepositPage() {
                 <div className="grid gap-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Bank Name:</span>
-                    <span className="font-medium">Chase Bank</span>
+                    <span className="font-medium">{utility?.bankDetails?.bankName || "Not set"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Account Number:</span>
-                    <span className="font-mono">1234567890</span>
+                    <span className="font-mono">{utility?.bankDetails?.accountNumber || "Not set"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Routing Number:</span>
-                    <span className="font-mono">021000021</span>
+                    <span className="font-mono">{utility?.bankDetails?.routingNumber || "Not set"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Account Name:</span>
-                    <span className="font-medium">InstantGlobal LLC</span>
+                    <span className="font-medium">{utility?.bankDetails?.accountName || "Not set"}</span>
                   </div>
                 </div>
               </div>
@@ -503,23 +520,23 @@ export default function DepositPage() {
                 <div className="grid gap-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Bank Name:</span>
-                    <span className="font-medium">Chase Bank</span>
+                    <span className="font-medium">{utility?.bankDetails?.bankName || "Not set"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">SWIFT/BIC:</span>
-                    <span className="font-mono">CHASUS33</span>
+                    <span className="font-mono">{utility?.bankDetails?.swift || "Not set"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">IBAN:</span>
-                    <span className="font-mono">US12 3456 7890 1234 5678 90</span>
+                    <span className="font-mono">{utility?.bankDetails?.iban || "Not set"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Account Name:</span>
-                    <span className="font-medium">InstantGlobal LLC</span>
+                    <span className="font-medium">{utility?.bankDetails?.accountName || "Not set"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Bank Address:</span>
-                    <span className="font-medium">270 Park Ave, NY 10017</span>
+                    <span className="font-medium">{utility?.bankDetails?.bankAddress || "Not set"}</span>
                   </div>
                 </div>
               </div>

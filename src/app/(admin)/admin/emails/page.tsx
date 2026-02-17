@@ -460,23 +460,6 @@ export default function EmailManagementPage() {
         </Card>
       )}
 
-      {/* Info Banner */}
-      <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
-        <div className="flex items-start gap-3">
-          <Mail className="h-5 w-5 text-blue-600 mt-0.5" />
-          <div className="flex-1">
-            <p className="text-sm font-medium text-blue-600">Email Backend Integration Required</p>
-            <p className="text-xs text-blue-600/80 mt-1">
-              The email sending functionality requires backend endpoints:
-              <br />
-              - POST /api/admin/send-email (individual)
-              <br />
-              - POST /api/admin/send-bulk-email (bulk)
-              <br />- GET /api/admin/email-logs (history)
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
