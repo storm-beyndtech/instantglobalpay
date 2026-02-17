@@ -15,7 +15,6 @@ import {
   ShieldCheck,
   ShieldAlert,
   ArrowRightLeft,
-  BarChart3,
   LogOut,
   LucideIcon,
 } from "lucide-react";
@@ -83,11 +82,6 @@ const navSections: NavSection[] = [
   {
     title: "System",
     items: [
-      {
-        label: "Analytics",
-        href: "/admin/analytics",
-        icon: BarChart3,
-      },
       {
         label: "Security Activity",
         href: "/admin/security-activity",
