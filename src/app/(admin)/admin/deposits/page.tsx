@@ -91,14 +91,9 @@ export default function DepositsApprovalPage() {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
 
-      const response = await fetch(`/api/deposits/${deposit._id}`, {
-        method: "PUT",
+      const response = await fetch(`/api/deposits/${deposit._id}/approve`, {
+        method: "POST",
         headers,
-        body: JSON.stringify({
-          email: deposit.user.email,
-          amount: deposit.amount,
-          status: "approved",
-        }),
       });
 
       if (response.ok) {
@@ -106,8 +101,17 @@ export default function DepositsApprovalPage() {
         await fetchDeposits();
         alert("Deposit approved successfully!");
       } else {
-        const error = await response.json();
-        alert(`Failed to approve: ${error.message || "Unknown error"}`);
+        const text = await response.text();
+        let message = `Request failed (${response.status})`;
+        if (text) {
+          try {
+            const parsed = JSON.parse(text);
+            message = parsed?.message || message;
+          } catch {
+            message = text;
+          }
+        }
+        alert(`Failed to approve: ${message}`);
       }
     } catch (error) {
       console.error("Approval error:", error);
@@ -129,18 +133,27 @@ export default function DepositsApprovalPage() {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       };
 
-      const response = await fetch(`/api/deposits/${deposit._id}`, {
-        method: "PUT",
+      const response = await fetch(`/api/deposits/${deposit._id}/reject`, {
+        method: "POST",
         headers,
-        body: JSON.stringify({ email: deposit.user.email, amount: deposit.amount, status: "rejected", reason }),
+        body: JSON.stringify({ reason }),
       });
 
       if (response.ok) {
         await fetchDeposits();
         alert("Deposit rejected");
       } else {
-        const error = await response.json();
-        alert(`Failed to reject: ${error.message || "Unknown error"}`);
+        const text = await response.text();
+        let message = `Request failed (${response.status})`;
+        if (text) {
+          try {
+            const parsed = JSON.parse(text);
+            message = parsed?.message || message;
+          } catch {
+            message = text;
+          }
+        }
+        alert(`Failed to reject: ${message}`);
       }
     } catch (error) {
       console.error("Rejection error:", error);

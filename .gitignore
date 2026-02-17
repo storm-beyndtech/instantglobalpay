@@ -108,3 +108,5 @@ storybook-static
 
 # Local Netlify folder
 .netlify
+
+.vercel
