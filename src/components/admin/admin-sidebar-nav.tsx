@@ -13,6 +13,7 @@ import {
   DollarSign,
   CreditCard,
   ShieldCheck,
+  ShieldAlert,
   ArrowRightLeft,
   BarChart3,
   LogOut,
@@ -86,6 +87,11 @@ const navSections: NavSection[] = [
         label: "Analytics",
         href: "/admin/analytics",
         icon: BarChart3,
+      },
+      {
+        label: "Security Activity",
+        href: "/admin/security-activity",
+        icon: ShieldAlert,
       },
       {
         label: "Emails",
