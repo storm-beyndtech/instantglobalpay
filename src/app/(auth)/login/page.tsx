@@ -21,6 +21,8 @@ import {
 	Sparkles,
 	Globe,
 	Zap,
+	Eye,
+	EyeOff,
 } from "lucide-react";
 
 const benefits = [
@@ -45,6 +47,7 @@ export default function LoginPage() {
 	const { login } = useAuth();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [showPassword, setShowPassword] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 
@@ -156,13 +159,25 @@ export default function LoginPage() {
 											<Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
 											<Input
 												id="password"
-												type="password"
+												type={showPassword ? "text" : "password"}
 												required
 												value={password}
 												onChange={(e) => setPassword(e.target.value)}
 												placeholder="••••••••••"
-												className="pl-10"
+												className="pl-10 pr-10"
 											/>
+											<button
+												type="button"
+												onClick={() => setShowPassword((prev) => !prev)}
+												aria-label={showPassword ? "Hide password" : "Show password"}
+												className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+											>
+												{showPassword ? (
+													<EyeOff className="h-4 w-4" />
+												) : (
+													<Eye className="h-4 w-4" />
+												)}
+											</button>
 										</div>
 									</div>
 
